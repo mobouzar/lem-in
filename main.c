@@ -1,15 +1,25 @@
-#include "lem_in.h"
-#include <stdio.h>
-#include <limits.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/11/14 13:49:49 by mobouzar          #+#    #+#             */
+/*   Updated: 2019/11/14 14:30:13 by mobouzar         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-int		parse_data(t_lem_in *m)
+#include "lem_in.h"
+
+int		parse_data(t_lem_in *l)
 {
 	char	*line;
 	int		len;
 	int		i;
 
 	i = 0;
-	m->nbants = -1;
+	l->nbants = -1;
 	get_next_line(0, &line);
 	len = ft_strlen(line);
 	while (len <= 10 && line[i])
@@ -18,38 +28,19 @@ int		parse_data(t_lem_in *m)
 		else
 			return (0);
 	if (len <= 10)
-		m->nbants = ft_atoi(line);
-	if (m->nbants == 0 && len > 10)
+		l->nbants = ft_atoi(line);
+	if (l->nbants == 0 && len > 10)
 		return (0);
 	return (1);
 }
 
-int	main()
+
+
+int	main(int ac, char **av)
 {
-	double r1;
-	double r2;
-	double r3;
-	double res;
-	char p;
+	t_lem_in	l;
 
-	res = 0;
-	r1 = 0;
-	r2 = 0;
-	r3 = 0;
-
-	printf("Entrer type de branchement (s/p)\n");
-	scanf("%c", &p);
-	printf("Entrer les tois resistance \n");
-	scanf("%lf%lf%lf", &r1, &r2, &r3);
-
-	if (p == 's')
-	{
-		res = (r1 + r2 + r3);
-	}
-	else if (p == 'p')
-	{
-		res = (r1 * r2 * r3) / ((r1 * r2) + (r1 * r3) + (r2 * r3));
-	}
-	printf("Le resultat est : %lf.\n", res);
+	parse_data(&l);
+	ft_printf("%d\n", l.nbants);
 	return (0);
 }

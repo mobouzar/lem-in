@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mydevice <mydevice@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 21:46:16 by mobouzar          #+#    #+#             */
-/*   Updated: 2019/11/06 02:59:02 by mydevice         ###   ########.fr       */
+/*   Updated: 2019/10/18 20:48:17 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,14 @@ int		get_next_line(const int fd, char **line)
 	g.p = 0;
 	if (fd < 0 || !line || read(fd, g.buff, 0) < 0)
 		return (-1);
+
 	(!lineof[fd]) ? (lineof[fd] = ft_strnew(0)) : lineof[fd];
-	while ((g.c = read(fd, g.buff, BUFF_SIZE)))
+	while ((g.c = read(fd, g.buff, BUFF_SIZE)) == 1)
 	{
 		g.buff[g.c] = '\0';
 		lineof[fd] = safe_memory(lineof[fd], ft_strjoin(lineof[fd], g.buff));
 		if (ft_strchr(lineof[fd], '\n'))
-			break ;
+			break ;		
 	}
 	while (lineof[fd][g.p] != '\n' && lineof[fd][g.p] != '\0')
 		g.p++;
