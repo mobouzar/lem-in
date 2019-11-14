@@ -6,7 +6,7 @@
 /*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 13:49:49 by mobouzar          #+#    #+#             */
-/*   Updated: 2019/11/14 14:30:13 by mobouzar         ###   ########.fr       */
+/*   Updated: 2019/11/14 14:42:53 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,6 @@ int		parse_data(t_lem_in *l)
 		return (0);
 	return (1);
 }
-
-
 
 int	main(int ac, char **av)
 {
