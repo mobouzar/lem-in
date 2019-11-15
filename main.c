@@ -6,39 +6,40 @@
 /*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 13:49:49 by mobouzar          #+#    #+#             */
-/*   Updated: 2019/11/15 16:32:29 by mobouzar         ###   ########.fr       */
+/*   Updated: 2019/11/16 00:15:45 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-int		read_map(t_map *map)
+void		read_data(t_map *map, t_lem_in *l)
 {
-	t_map		*m;
 	char		*line;
 	int			i;
-	
+
 	i = 0;
 	while (get_next_line(0, &line))
 	{
-		m = (t_map *)malloc(sizeof(t_map));
-		map->map = ft_strdup(line);
+		if (get_nbants(l, line))
+		{
+			map->type = NBANTS;
+		}
+		map->data = ft_strdup(line);
+		map->next = (t_map *)malloc(sizeof(t_map));
 		map = map->next;
-		ft_putendl("line");
+		ft_strdel(&line);
 	}
+	ft_strdel(&line);
 	map->next = NULL;
-	return (1);
 }
 
-int		get_nbrofants(t_lem_in *l, char *line)
+int		get_nbants(t_lem_in *l, char *line)
 {
-	// char	*line;
 	int		len;
 	int		i;
 
 	i = 0;
 	l->nbants = -1;
-	// get_next_line(0, &line);
 	len = ft_strlen(line);
 	while (len <= 10 && line[i])
 		if (ft_isdigit(line[i]))
@@ -66,16 +67,19 @@ int		get_rooms(t_lem_in *l)
 	return (1);
 }
 
-int	main(int ac, char **av)
+int	main(void)
 {
-	t_map		*m;
-
-	m = (t_map *)malloc(sizeof(t_map));
-	read_map(m);
-	while (m->next != NULL)
+	t_lem_in	l;
+	t_map		*map;
+	t_map		*head;
+	
+	map = (t_map *)malloc(sizeof(t_map));
+	head = map;
+	read_data(map, &l);
+	while (head->next != NULL)
 	{
-		ft_printf("%s\n", m->map);
-		m = m->next;
+		ft_putendl(head->data);
+		head = head->next;
 	}
 	return (0);
 }
