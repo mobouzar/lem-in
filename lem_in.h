@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mydevice <mydevice@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 13:49:39 by mobouzar          #+#    #+#             */
-/*   Updated: 2019/11/16 00:46:53 by mydevice         ###   ########.fr       */
+/*   Updated: 2019/11/16 23:34:10 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,18 +24,18 @@
 # define END 6
 # define COMMAND 7
 
-typedef struct		s_point
-{
-	int				y;
-	int				x;
-}					t_point;
-
 typedef struct		s_map 
 {
 	char			*data;
 	int				type;
 	struct s_map	*next;
 }					t_map;
+
+typedef struct		s_point
+{
+	int				x;
+	int				y;
+}					t_point;
 
 typedef struct		s_room
 {
@@ -45,11 +45,13 @@ typedef struct		s_room
 
 typedef struct		s_lem_in
 {
-	t_room			*room;
+	t_room			*rooms;
 	char			*comment;
 	int				nbants;
 }					t_lem_in;
 
 int		get_nbants(t_lem_in *l, char *line);
+int		check_room(t_lem_in *l, t_map *m, char *line);
+int		get_rooms(t_lem_in *l, t_map **m, char *line, char *cmd);
 
 #endif
