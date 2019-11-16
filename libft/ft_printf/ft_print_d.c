@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_print_d.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mydevice <mydevice@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/05 01:35:10 by mobouzar          #+#    #+#             */
-/*   Updated: 2019/11/14 15:00:36 by mobouzar         ###   ########.fr       */
+/*   Updated: 2019/11/15 16:58:29 by mydevice         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,7 @@ int		ft_print_d(va_list list, t_init *lst)
 	char			*str;
 	char			*tmp;
 	int				len;
-	int				i;
 
-	i = 0;
 	len = 0;
 	if ((lst->flag & LL) == LL)
 		nbr = va_arg(list, long long int);

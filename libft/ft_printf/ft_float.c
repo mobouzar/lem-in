@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_float.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mydevice <mydevice@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 14:23:50 by mobouzar          #+#    #+#             */
-/*   Updated: 2019/11/14 15:00:01 by mobouzar         ###   ########.fr       */
+/*   Updated: 2019/11/15 17:00:02 by mydevice         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,8 @@ char		*ft_mantissa(t_data *lst)
 char		*ft_putstr_float(char *src, char *dst, char *tmp, t_init *lst)
 {
 	int		a;
-	int		len;
 	int		prs;
 
-	len = 0;
 	prs = lst->precision;
 	a = ft_strlen(dst);
 	if (prs > 0 || (lst->flag & HASH) == HASH)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mydevice <mydevice@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 13:49:49 by mobouzar          #+#    #+#             */
-/*   Updated: 2019/11/15 16:32:29 by mobouzar         ###   ########.fr       */
+/*   Updated: 2019/11/16 00:40:53 by mydevice         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@ int		read_map(t_map *map)
 	while (get_next_line(0, &line))
 	{
 		m = (t_map *)malloc(sizeof(t_map));
-		map->map = ft_strdup(line);
-		map = map->next;
-		ft_putendl("line");
+		m->next = NULL;
+		m->map = ft_strdup(line);
+		m = m->next;
 	}
-	map->next = NULL;
+	m->next = NULL;
 	return (1);
 }
 

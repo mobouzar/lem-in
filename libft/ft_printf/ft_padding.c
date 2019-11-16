@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_padding.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mydevice <mydevice@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/04 23:08:04 by mobouzar          #+#    #+#             */
-/*   Updated: 2019/11/14 15:00:07 by mobouzar         ###   ########.fr       */
+/*   Updated: 2019/11/15 16:59:37 by mydevice         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,7 @@ static char		*ft_manage_precision(t_init *lst, char *str)
 {
 	const int	str_len = ft_strlen(str);
 	char		*tmp;
-	int			i;
 
-	i = -1;
 	tmp = NULL;
 	if (lst->precision == 0 && *str == '0' && lst->specifier != 'f')
 	{
@@ -81,9 +79,7 @@ char			*ft_manage_width(t_init *lst, char *s)
 {
 	int			str_len;
 	char		*str;
-	int			i;
 
-	i = 0;
 	if (!(str = ft_strdup(s)))
 		return (0);
 	str = ft_safe(str, ft_manage_precision(lst, str));
