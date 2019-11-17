@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mydevice <mydevice@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 13:49:49 by mobouzar          #+#    #+#             */
-/*   Updated: 2019/11/16 23:56:09 by mobouzar         ###   ########.fr       */
+/*   Updated: 2019/11/17 01:20:44 by mydevice         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,11 @@ int		read_data(t_map *map, t_lem_in *l)
 				ft_strdel(&cmd);
 				ft_strdel(&line);
 			}
+			else
+			{
+				ft_putendl("Start or end not found!!");
+				exit(1);
+			}
 		}
 		else if (line[0] != '#' && line[0] != 'L' && line[1] == ' ')
 		{
@@ -53,8 +58,13 @@ int		read_data(t_map *map, t_lem_in *l)
 				map->type = ROOM;
 			}
 		}
-		else
+		else if (line[0] == '#' && line[1] != '#')
+		{
 			map->data = ft_strdup(line);
+			map->type = COMMENT;
+		}
+		else
+			break ;
 		map->next = (t_map *)malloc(sizeof(t_map));
 		map = map->next;
 		ft_strdel(&line);
@@ -140,7 +150,7 @@ int		main(void)
 	read_data(map, &l);
 	while (head->next != NULL)
 	{
-		ft_printf("%s => %d\n", head->data, head->type);
+		ft_printf("{data : %s} => {type : %d}\n", head->data, head->type);
 		head = head->next;
 	}
 	return (0);
