@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mydevice <mydevice@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 13:49:49 by mobouzar          #+#    #+#             */
-/*   Updated: 2019/11/17 01:20:44 by mydevice         ###   ########.fr       */
+/*   Updated: 2019/11/20 22:45:31 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int		read_data(t_map *map, t_lem_in *l)
 	i = 0;
 	while (get_next_line(0, &line))
 	{
-		if (get_nbants(l, line))
+		if (i == 0 && get_nbants(l, line) && (i = 1))
 		{
 			map->data = ft_strdup(line);
 			map->type = NBANTS;
@@ -33,30 +33,22 @@ int		read_data(t_map *map, t_lem_in *l)
 			cmd = ft_strdup(line);
 			ft_strdel(&line);
 			get_next_line(0, &line);
-			if (line[0] != '#' && line[0] != 'L')
+			if (line[0] != '#' || line[0] != 'L')
 			{
 				if (!get_rooms(l, &map, line, cmd))
 				{
 					ft_strdel(&cmd);
 					ft_strdel(&line);
-					exit(1);
+					exit(0);
 				}
 				ft_strdel(&cmd);
 				ft_strdel(&line);
 			}
-			else
-			{
-				ft_putendl("Start or end not found!!");
-				exit(1);
-			}
 		}
-		else if (line[0] != '#' && line[0] != 'L' && line[1] == ' ')
+		else if (line[1] == ' ' && check_room(l, map, line))
 		{
-			if (check_room(l, map, line))
-			{
-				map->data = ft_strdup(line);
-				map->type = ROOM;
-			}
+			map->data = ft_strdup(line);
+			map->type = ROOM;
 		}
 		else if (line[0] == '#' && line[1] != '#')
 		{
@@ -86,11 +78,17 @@ int		get_nbants(t_lem_in *l, char *line)
 		if (ft_isdigit(line[i]))
 			i++;
 		else
-			return (0);
+		{
+			ft_putendl("Number ants not valid!");
+			exit(0);
+		}
 	if (len <= 10)
 		l->nbants = ft_atoi(line);
-	if (l->nbants == 0 && len > 10)
-		return (0);
+	if (l->nbants == 0 || len > 10)
+	{
+		ft_putendl("Number ants not valid!");
+		exit(0);
+	}
 	return (1);
 }
 
@@ -98,28 +96,36 @@ int		check_room(t_lem_in *l, t_map *m, char *line)
 {
 	char	**split;
 	int		i;
-	if (line[0] == 'L' && line[0] == '#')
-		return (0);
+
+	l->rooms = (t_room *)malloc(sizeof(t_room));
+	if (line[0] == 'L' || line[0] == '#')
+	{
+		ft_putendl("Room not valid !!");
+		exit(0);
+	}
 	split = ft_strsplit(line, ' ');
-	i = 0;
-	while (split[i] != NULL)
-		i++;
-	l->rooms->room = ft_strdup(split[0]);
-	l->rooms->cords.x = ft_atoi(split[1]);
-	l->rooms->cords.y = ft_atoi(split[2]);
-	if (ft_strcmp(ft_itoa(l->rooms->cords.x), split[1])
-	|| ft_strcmp(ft_itoa(l->rooms->cords.y), split[2]) || i != 3)
-		return (0);
+	i = -1;
+	while (split[++i] != NULL)
+		if (i == 0)
+			l->rooms->room = ft_strdup(split[i]);
+		else if (i == 1)
+			l->rooms->cords.x = ft_atoi(split[i]);
+		else if (i == 2)
+			l->rooms->cords.y = ft_atoi(split[i]);
+	if (i != 3 || (ft_strcmp(ft_itoa(l->rooms->cords.x), split[1])
+	|| ft_strcmp(ft_itoa(l->rooms->cords.y), split[2])))
+	{
+		ft_putendl("Room not valid !!");
+		exit(0);
+	}
 	return (1);
 }
 
 int		get_rooms(t_lem_in *l, t_map **map, char *line, char *cmd)
 {
-	l->rooms = (t_room *)malloc(sizeof(t_room));
 	if (!ft_strcmp(cmd, "##start"))
 	{
-		if (!check_room(l, (*map), line))
-			return (0);
+		check_room(l, (*map), line);
 		(*map)->next = (t_map *)malloc(sizeof(t_map));
 		(*map) = (*map)->next;
 		(*map)->data = ft_strdup(line);
@@ -127,15 +133,17 @@ int		get_rooms(t_lem_in *l, t_map **map, char *line, char *cmd)
 	}
 	else if (!ft_strcmp(cmd, "##end"))
 	{
-		if (!check_room(l, (*map), line))
-			return (0);
+		check_room(l, (*map), line);
 		(*map)->next = (t_map *)malloc(sizeof(t_map));
 		(*map) = (*map)->next;
 		(*map)->data = ft_strdup(line);
 		(*map)->type = END;
 	}
 	else
+	{
+		ft_putendl("START or END not found !!");
 		return (0);
+	}
 	return (1);
 }
 

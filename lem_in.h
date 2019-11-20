@@ -6,7 +6,7 @@
 /*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 13:49:39 by mobouzar          #+#    #+#             */
-/*   Updated: 2019/11/16 23:34:10 by mobouzar         ###   ########.fr       */
+/*   Updated: 2019/11/20 22:31:30 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ typedef struct		s_room
 typedef struct		s_lem_in
 {
 	t_room			*rooms;
-	char			*comment;
 	int				nbants;
+	
 }					t_lem_in;
 
 int		get_nbants(t_lem_in *l, char *line);
