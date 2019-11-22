@@ -6,7 +6,7 @@
 /*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 13:49:49 by mobouzar          #+#    #+#             */
-/*   Updated: 2019/11/20 22:45:31 by mobouzar         ###   ########.fr       */
+/*   Updated: 2019/11/22 23:59:13 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int		read_data(t_map *map, t_lem_in *l)
 	int			i;
 
 	i = 0;
+	l->nbrooms = 0;
 	while (get_next_line(0, &line))
 	{
 		if (i == 0 && get_nbants(l, line) && (i = 1))
@@ -49,6 +50,7 @@ int		read_data(t_map *map, t_lem_in *l)
 		{
 			map->data = ft_strdup(line);
 			map->type = ROOM;
+			l->nbrooms += 1;
 		}
 		else if (line[0] == '#' && line[1] != '#')
 		{
@@ -63,6 +65,7 @@ int		read_data(t_map *map, t_lem_in *l)
 	}
 	ft_strdel(&line);
 	map->next = NULL;
+	// l->rooms = NULL;
 	return (1);
 }
 
@@ -130,6 +133,7 @@ int		get_rooms(t_lem_in *l, t_map **map, char *line, char *cmd)
 		(*map) = (*map)->next;
 		(*map)->data = ft_strdup(line);
 		(*map)->type = START;
+		l->nbrooms += 1;
 	}
 	else if (!ft_strcmp(cmd, "##end"))
 	{
@@ -138,6 +142,7 @@ int		get_rooms(t_lem_in *l, t_map **map, char *line, char *cmd)
 		(*map) = (*map)->next;
 		(*map)->data = ft_strdup(line);
 		(*map)->type = END;
+		l->nbrooms += 1;
 	}
 	else
 	{
@@ -146,7 +151,7 @@ int		get_rooms(t_lem_in *l, t_map **map, char *line, char *cmd)
 	}
 	return (1);
 }
-
+#include <stdio.h>
 int		main(void)
 {
 	t_lem_in	l;
@@ -156,10 +161,18 @@ int		main(void)
 	map = (t_map *)malloc(sizeof(t_map));
 	head = map;
 	read_data(map, &l);
-	while (head->next != NULL)
+	// while (head->next != NULL)
+	// {
+	// 	ft_printf("{data : %s} => {type : %d} {nbroom : %d}\n", head->data, head->type, l.nbrooms);
+	// 	head = head->next;
+	// }
+	int i = 0;
+	while (i < l.nbrooms)
 	{
-		ft_printf("{data : %s} => {type : %d}\n", head->data, head->type);
-		head = head->next;
+		// ft_putendl(l.rooms->room);
+		printf("room => %s x => %d y => %d\n", l.rooms->room, l.rooms->cords.x, l.rooms->cords.y);
+		i++;
 	}
+	
 	return (0);
 }
