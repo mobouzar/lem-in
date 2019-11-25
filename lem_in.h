@@ -6,7 +6,7 @@
 /*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 13:49:39 by mobouzar          #+#    #+#             */
-/*   Updated: 2019/11/22 23:58:32 by mobouzar         ###   ########.fr       */
+/*   Updated: 2019/11/23 23:38:21 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,10 @@ typedef struct		s_point
 
 typedef struct		s_room
 {
-	char			*room;
 	t_point			cords;
+	char			*room;
+	int				index;
+	struct s_room	*next;
 }					t_room;
 
 typedef struct		s_lem_in

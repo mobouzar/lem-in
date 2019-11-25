@@ -6,7 +6,7 @@
 /*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 13:49:49 by mobouzar          #+#    #+#             */
-/*   Updated: 2019/11/22 23:59:13 by mobouzar         ###   ########.fr       */
+/*   Updated: 2019/11/25 17:11:48 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,16 @@
 
 int		read_data(t_map *map, t_lem_in *l)
 {
+	t_room		*head;
 	char		*line;
 	char		*cmd;
 	int			i;
 
 	i = 0;
 	l->nbrooms = 0;
+	l->rooms = (t_room *)malloc(sizeof(t_room));
+	l->rooms->index = 0;
+	head = l->rooms;
 	while (get_next_line(0, &line))
 	{
 		if (i == 0 && get_nbants(l, line) && (i = 1))
@@ -65,7 +69,13 @@ int		read_data(t_map *map, t_lem_in *l)
 	}
 	ft_strdel(&line);
 	map->next = NULL;
-	// l->rooms = NULL;
+	l->rooms->next = NULL;
+	while (head->next != NULL)
+	{
+		ft_printf("name => |%s|, x => |%d|, y => |%d| , index => %d\n", head->room, head->cords.x, head->cords.y, head->index);
+		head = head->next;
+	}
+		
 	return (1);
 }
 
@@ -100,7 +110,7 @@ int		check_room(t_lem_in *l, t_map *m, char *line)
 	char	**split;
 	int		i;
 
-	l->rooms = (t_room *)malloc(sizeof(t_room));
+	l->rooms->next = (t_room *)malloc(sizeof(t_room));
 	if (line[0] == 'L' || line[0] == '#')
 	{
 		ft_putendl("Room not valid !!");
@@ -115,12 +125,14 @@ int		check_room(t_lem_in *l, t_map *m, char *line)
 			l->rooms->cords.x = ft_atoi(split[i]);
 		else if (i == 2)
 			l->rooms->cords.y = ft_atoi(split[i]);
+	l->rooms->index = l->nbrooms;
 	if (i != 3 || (ft_strcmp(ft_itoa(l->rooms->cords.x), split[1])
 	|| ft_strcmp(ft_itoa(l->rooms->cords.y), split[2])))
 	{
 		ft_putendl("Room not valid !!");
 		exit(0);
 	}
+	l->rooms = l->rooms->next;
 	return (1);
 }
 
@@ -151,13 +163,19 @@ int		get_rooms(t_lem_in *l, t_map **map, char *line, char *cmd)
 	}
 	return (1);
 }
-#include <stdio.h>
+
 int		main(void)
 {
 	t_lem_in	l;
 	t_map		*map;
 	t_map		*head;
 	
+
+	t_room *rooms;
+
+	rooms = (t_room*)malloc(sizeof(t_room) * l.nbrooms);	
+	
+
 	map = (t_map *)malloc(sizeof(t_map));
 	head = map;
 	read_data(map, &l);
@@ -167,12 +185,12 @@ int		main(void)
 	// 	head = head->next;
 	// }
 	int i = 0;
-	while (i < l.nbrooms)
-	{
-		// ft_putendl(l.rooms->room);
-		printf("room => %s x => %d y => %d\n", l.rooms->room, l.rooms->cords.x, l.rooms->cords.y);
-		i++;
-	}
+	// while (i < l.nbrooms)
+	// {
+	// 	// ft_putendl(l.rooms->room);
+	// 	printf("room => %s x => %d y => %d\n", l.rooms->room, l.rooms->cords.x, l.rooms->cords.y);
+	// 	i++;
+	// }
 	
 	return (0);
 }
