@@ -6,7 +6,7 @@
 /*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 19:39:51 by mobouzar          #+#    #+#             */
-/*   Updated: 2019/11/14 14:28:53 by mobouzar         ###   ########.fr       */
+/*   Updated: 2019/11/27 18:15:37 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,7 @@ int						ft_str_nbr(char *str);
 */
 
 int						get_next_line(const int fd, char **line);
+char					**ft_split_format(char *str, char c);
 void					*ft_memset(void *b, int c, size_t len);
 void					ft_bzero(void *s, size_t n);
 void					*ft_memcpy(void *dst, const void *src, size_t n);
