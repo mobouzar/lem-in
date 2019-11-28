@@ -3,7 +3,6 @@
 
 static void		ft_push_queue(t_queue **lst, int node)
 {
-	//ft_printf("\nnode = %d\n", node);
 	if (!(*lst))
 	{
 		if (!((*lst)= (t_queue *)malloc(sizeof(t_queue))))
@@ -18,6 +17,7 @@ static void		ft_push_queue(t_queue **lst, int node)
 			return ;
 		(*lst)->next->node = node;
 		(*lst)->next->flow = 0;
+		(*lst)->next->next = NULL;
 		(*lst) = (*lst)->next;
 	}
 }
@@ -29,6 +29,7 @@ static t_queue			*ft_front_queue(t_queue **q)
 
 	tmp = NULL;
 	tmp = *q;
+	tmp = *q;
 	if ((*q)->next)
 		(*q) = (*q)->next;
 	else
@@ -36,7 +37,7 @@ static t_queue			*ft_front_queue(t_queue **q)
 	return (tmp);
 }
 
-static	void _init(t_bfs **bfs, int nbroom , int strat)
+static	void _init(t_bfs **bfs,int **vist, int nbroom , int strat)
 {
 	t_bfs *lst;
 
@@ -44,28 +45,15 @@ static	void _init(t_bfs **bfs, int nbroom , int strat)
 	if (!((*bfs) = (t_bfs *)malloc(sizeof(t_bfs))))
 			return ;
 	ft_memset((*bfs), '\0', sizeof(t_bfs));
-	if (!((*bfs)->vist = (int *)malloc(sizeof(int) * (nbroom))))
+	if (!((*vist) = (int *)malloc(sizeof(int) * (nbroom))))
 		return ;
-	ft_memset((*bfs)->vist, -1, sizeof(int) * (nbroom));
+	ft_memset((*vist), -1, sizeof(int) * (nbroom));
 	ft_push_queue(&(*bfs)->last, strat);
-	(*bfs)->vist[0] = 0;
+	(*vist)[0] = 0;
 	(*bfs)->q = (*bfs)->last;
 }
 
-void		ft_free_queue(t_queue **lst)
-{
-	t_queue	*tmp;
 
-	if ((*lst))
-	{
-		while ((*lst))
-		{
-			tmp = (*lst);
-			(*lst) = (*lst)->next;
-			ft_memdel((void	**)&tmp);
-		}
-	}
-}
 
 
 void	ft_index_path(t_adjs *lst,  int end_room, int strat)
@@ -75,41 +63,56 @@ void	ft_index_path(t_adjs *lst,  int end_room, int strat)
 
 	i = 0;
 	q = lst->adjs[strat];
-//	ft_printf("%d		%d\n", end_room, strat);
+//	ft_printf("%d		%d\n", strat , end_room);
 	while (q)
 	{
+		//ft_printf("strat = %d	node =%d		flow = %d\n",strat, q->node , q->flow );
 		if (q->node == end_room)
 		{
-			q->flow = 2;
+			if (ft_index_path_cap(lst, strat,   end_room))
+			{
+					q->flow = -2;
+			}
+			else
+			{
+				q->flow++;
+			}
+			
 		}
+			
+		
 		q = q->next;
 	}
 }
 
 
 
-int		*_bfs(t_lem_in *lem, t_adjs *adj)
+int		*_bfs(t_lem_in *lem, t_adjs *adj, int c)
 {
 	t_bfs *lst;
 	t_queue *tmp;
 	t_queue *queue;
+	int 	*vist;
 	
-	_init(&lst, 13, 0);//lem->nbrooms
+	(void)lem;
+	_init(&lst, &vist,8, 0);//lem->nbrooms
 	while (lst->q)
 	{
 		tmp = ft_front_queue(&lst->q);
 		queue = adj->adjs[tmp->node];
 		while (queue)
-		{ 
-			if (queue->node == 13)
+		{
+			if (queue->node == 7 && queue->flow == c)
 			{
-				lst->vist[queue->node] = tmp->node;
-				//ft_free_queue(&lst->q);
-				return (lst->vist);
-			}
-			if (lst->vist[queue->node] == -1 && queue->flow == 0)
+				//printf("p = %d			f = %d\n",tmp->node,queue->node);
+				vist[queue->node] = tmp->node;
+				 ft_free_queue(&lst->q);
+				 ft_memdel((void **)&lst);
+				return (vist);
+			}		
+			if (vist[queue->node] == -1 && queue->flow == c)
 			{
-				lst->vist[queue->node] = tmp->node;
+				vist[queue->node] = tmp->node;
 				ft_push_queue(&lst->last, queue->node);	
 				if (!(lst->q))
 					lst->q = lst->last;
@@ -118,5 +121,6 @@ int		*_bfs(t_lem_in *lem, t_adjs *adj)
 		}
 		ft_memdel((void **)&tmp);
 	}
+	ft_memdel((void **)&lst);
 	return (0);
 }

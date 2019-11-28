@@ -6,7 +6,7 @@
 #    By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/11 19:42:06 by mobouzar          #+#    #+#              #
-#    Updated: 2019/11/27 18:15:55 by mobouzar         ###   ########.fr        #
+#    Updated: 2019/11/14 14:23:21 by mobouzar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ OBJECTS = 	ft_memset.o ft_bzero.o ft_memcpy.o ft_memmove.o ft_memchr.o ft_memcmp
 		ft_lstmap.o ft_abs.o ft_swap.o ft_strrev.o ft_getcharindex.o ft_lstdisplcont.o ft_lstendadd.o ft_lstsupp.o ft_sqrt.o \
 		ft_printf/ft_print_d.o ft_printf/ft_get_flag.o ft_printf/ft_padding.o  ft_printf/ft_print_d.o ft_printf/ft_printf.o  \
 		ft_printf/ft_print_base.o ft_printf/ft_print_char.o ft_printf/helper.o ft_printf/ft_print_f.o ft_printf/ft_float.o ft_printf/ft_operation.o \
-		ft_printf/ft_float2.o ft_split_format.o
+		ft_printf/ft_float2.o
 
 all: $(NAME)
 
