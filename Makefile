@@ -6,18 +6,23 @@
 #    By: yelazrak <yelazrak@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/26 18:43:13 by yelazrak          #+#    #+#              #
-#    Updated: 2019/11/28 20:58:51 by yelazrak         ###   ########.fr        #
+#    Updated: 2019/12/04 16:12:49 by yelazrak         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = lem-in
 
-c_srcs =_bfs.c \
-       ft_fun_free.c\
-	   list_adjs_.c	
+c_srcs = algo_/_bfs.c \
+       algo_/ft_fun_free.c\
+	   algo_/ft_get_best_g.c \
+	   algo_/get_group_.c\
+		read_file/parse_.c\
+		main.c \
+		read_file/ft_adj_list.c \
+		read_file/sort_rooms.c 
 
 objs = $(c_srcs:.c=.o)
-INCLUDES = .
+INCLUDES = ./include
 
 FLAGS = -g -Wall -Wextra -Werror
 

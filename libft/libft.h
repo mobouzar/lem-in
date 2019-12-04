@@ -6,7 +6,7 @@
 /*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 19:39:51 by mobouzar          #+#    #+#             */
-/*   Updated: 2019/11/14 14:28:53 by mobouzar         ###   ########.fr       */
+/*   Updated: 2019/12/04 14:35:06 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,7 @@ int						ft_str_nbr(char *str);
 */
 
 int						get_next_line(const int fd, char **line);
+char					**ft_split_format(char *str, char c);
 void					*ft_memset(void *b, int c, size_t len);
 void					ft_bzero(void *s, size_t n);
 void					*ft_memcpy(void *dst, const void *src, size_t n);
@@ -189,6 +190,9 @@ void					ft_putnbr(int n);
 void					ft_putchar_fd(char c, int fd);
 void					ft_putstr_fd(char const *s, int fd);
 void					ft_putendl_fd(char const *s, int fd);
+int						ft_strcspn(const char *str, const char *charset);
+int						ft_strspn(const char *str, const char *charset);
+int						ft_ceil(int nbr1, int nbr2);
 void					ft_putnbr_fd(int n, int fd);
 
 t_list					*ft_lstnew(void const *content, size_t content_size);
