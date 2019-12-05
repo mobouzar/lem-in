@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yelazrak <yelazrak@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 13:49:49 by mobouzar          #+#    #+#             */
-/*   Updated: 2019/12/04 19:36:18 by yelazrak         ###   ########.fr       */
+/*   Updated: 2019/12/04 23:18:42 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ int		read_data(t_map *map, t_lem_in *l)
 	t_room		*room;
 	t_room		*head;
 	char		*line;
+	char		*start;
+	char		*end;
 	int			i;
 
 	i = 0;
@@ -101,10 +103,10 @@ int		read_data(t_map *map, t_lem_in *l)
 		{
 			if (i == 1 && (i = 2))
 			{
-				creat_rooms_array(l, head);
+				creat_rooms_array(l, head, &start, &end);
 				ft_creat_adj(&l, l->nbrooms);
 			}
-			get_links(&l, line);
+			get_links(&l, line, start, end);
 			map->data = ft_strdup(line);
 			map->type = LINK;
 		}
