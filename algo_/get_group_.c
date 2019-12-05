@@ -14,14 +14,14 @@ static t_group *ft_get_group(char *group)
     return (g);
 }
 
-static char *ft_convert_int_char(int *visit, int max)
+static char *ft_convert_int_char(int *visit, int max, int min)
 {
     int i;
     char *str;
 
     str = ft_strdup(ft_itoa(max));
     i = max;
-    while (i != 0)
+    while (i != min)
     { 
         str = ft_strjoin_free( ft_strdup("-"), str);
         str = ft_strjoin_free(ft_itoa(visit[i]), str);  
@@ -67,35 +67,33 @@ static int ft_add_path(t_group **list, char *group, int i)
     lst = list;
     tmp = lst[i];
     a = 0;
-    while (tmp)
+    while (tmp->next)
     {
         if (ft_check_path(tmp->grp, group))
-        {
             a = 1;
-        }
         tmp = tmp->next;
     }
     if (a == 0)
     {   
-        tmp = ft_get_group(group);
-        tmp->next = lst[i];
-        list[i] = tmp;
+        if (!lst[i])
+            lst[i] = ft_get_group(group);
+        else
+            tmp->next = ft_get_group(group);
+       // tmp->next = lst[i];
+        //list[i] = tmp;
         return (1);
     }
     return (0);
 } 
 
-void        ft_add_group(t_group ***lst, int *visit, int end , int i)
+void        ft_add_group(t_group ***lst, int *visit, int end , int i,int strat)
 {
     t_group  **tmp;
     char     *group;
-    int       a;
-
+  
     tmp = *lst;
-    a = 0;
-    // if (tmp[0])
-    //     i = 1;
-    group = ft_convert_int_char(visit, end);
+    group = ft_convert_int_char(visit, end, strat);
+    
     if (!tmp[i])
     {
        tmp[i] = ft_get_group(group);

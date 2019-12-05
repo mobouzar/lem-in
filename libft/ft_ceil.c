@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_ceil.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yelazrak <yelazrak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 13:04:51 by mobouzar          #+#    #+#             */
-/*   Updated: 2019/12/04 14:32:36 by mobouzar         ###   ########.fr       */
+/*   Updated: 2019/12/05 19:25:02 by yelazrak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ int		ft_ceil(int nbr1, int nbr2)
 
 	result = 0;
 	if (nbr1 % nbr2 == 0)
-		result = nbr1 / nbr2;
+		result = (int)(nbr1 / nbr2);
 	else
-		return ((nbr1 / nbr2) + 1);
+		return (((int)(nbr1 / nbr2)) + 1);
 	return (result);
 }

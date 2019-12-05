@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort_rooms.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yelazrak <yelazrak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 17:08:44 by mobouzar          #+#    #+#             */
-/*   Updated: 2019/12/05 16:58:36 by mobouzar         ###   ########.fr       */
+/*   Updated: 2019/12/05 17:42:23 by yelazrak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ int		contains(t_lem_in *l, char *element, char *start, char *end)
 	while (i <= len)
 	{
 		m = (i + len) / 2;
-		if (ft_strstr(l->rooms[m], start))
+		if (!ft_strcmp(l->rooms[m], start))
 			l->start = m;
-		else if (ft_strstr(l->rooms[m], end))
+		else if (!ft_strcmp(l->rooms[m], end))
 			l->end = m;
 		if (!ft_strcmp(l->rooms[m], element))
 			return (m);

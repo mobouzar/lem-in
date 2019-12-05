@@ -19,7 +19,7 @@ int main()
 	t_lem_in l;
 	t_map *map;
 	t_map *head;
-	int   i;
+	int i;
 
 	i = 0;
 	map = (t_map *)malloc(sizeof(t_map));
@@ -28,11 +28,18 @@ int main()
 	read_data(map, &l);
 
 	path = NULL;
+	l.quit = 1;
+	i  = 0;
 	// printf("\n\nstrat = %d			end = %d\n", l.start, l.end);
-	// while (i < 100)
+	while (l.quit < 44)
 	{
 		while ((path = _bfs(&l, i)))
 		{
+			if (i == 0)
+				ft_add_group(&(l.g), path, l.end,0, l.start);
+			else
+				ft_add_group(&(l.g), path, l.end,1, l.start);
+
 			ft_get_path_(&l, path, l.end);
 			if (path)
 			{
@@ -41,7 +48,27 @@ int main()
 			}
 			path = NULL;
 		}
+		ft_get_best_grp(&(l.g), l.nbants);
 		printf("\n------------------\n");
+		(l.quit)++;
+		i++;
+	}
+
+	//ft_get_best_grp(&(l.g), 20); //
+	t_group *lst;
+	i = 0;
+
+	while (i < 2)
+	{
+		lst = (l.g)[i];
+		while (lst)
+		{
+			ft_printf("i = %d  str = %s   \n", i, lst->grp);
+			lst = lst->next;
+		}
+		ft_putchar('\n');
+		ft_putchar('\n');
+		ft_putchar('\n');
 		i++;
 	}
 }

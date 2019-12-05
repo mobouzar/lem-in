@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yelazrak <yelazrak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 13:49:49 by mobouzar          #+#    #+#             */
-/*   Updated: 2019/12/04 23:18:42 by mobouzar         ###   ########.fr       */
+/*   Updated: 2019/12/05 18:02:36 by yelazrak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ int		read_data(t_map *map, t_lem_in *l)
 					ft_strdel(&line);
 				}
 			}
+			///ft_putendl("hghgsdgs");
 		}
 		else if (is_valid(line, ' ') && check_room(&room, line))
 		{

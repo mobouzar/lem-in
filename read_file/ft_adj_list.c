@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_adj_list.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yelazrak <yelazrak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/29 15:20:23 by mobouzar          #+#    #+#             */
-/*   Updated: 2019/12/04 23:30:48 by mobouzar         ###   ########.fr       */
+/*   Updated: 2019/12/05 17:59:42 by yelazrak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,11 @@ int		ft_creat_adj(t_lem_in **lst, int nbrooms)
 	if (!((*lst)->adlist = (t_queue **)malloc(sizeof(t_queue *) * nbrooms)))
 		return (0);
 	ft_memset((void *)(*lst)->adlist, '\0', sizeof(t_queue *) * nbrooms);
+	
+	
+	if (!((*lst)->g = (t_group **)malloc(sizeof(t_group *) * 2)))
+		return (0);
+	 ft_memset((void *)(*lst)->g, '\0', sizeof(t_group*) * 2);
 	return (1);
 }
 
