@@ -1,5 +1,13 @@
 #include "include/lem_in.h"
 
+t_lem_in * getset(t_lem_in *l)
+{
+	static t_lem_in *g;
+
+	if (l)
+		g = l;
+	return (g);
+}
 static void ft_get_path_(t_lem_in *lst, int *path, int i)
 {
 	//ft_putendl("yyyyyyyy");
@@ -7,7 +15,7 @@ static void ft_get_path_(t_lem_in *lst, int *path, int i)
 		return;
 
 	ft_get_path_(lst, path, path[i]); //
-	ft_printf("%d ==> ", path[i]);
+	ft_printf("%s ==> ", lst->rooms[path[i]]);
 	ft_index_path(lst, i, path[i]);
 	//ft_index_path_cap(lst, path[i], i);
 	//ft_index_path(lst,  path[i], i);
@@ -29,9 +37,10 @@ int main()
 
 	path = NULL;
 	l.quit = 1;
+	 l.nbr_ant_start = 1;
 	i  = 0;
 	// printf("\n\nstrat = %d			end = %d\n", l.start, l.end);
-	while (l.quit < 44)
+	while (l.quit < 80)
 	{
 		while ((path = _bfs(&l, i)))
 		{
@@ -43,8 +52,9 @@ int main()
 			ft_get_path_(&l, path, l.end);
 			if (path)
 			{
-				ft_putnbr(l.end);
-				ft_printf("\n");
+				
+				//ft_putnbr(l.end);
+				ft_printf("%s\n", l.rooms[l.end]);
 			}
 			path = NULL;
 		}
@@ -53,22 +63,23 @@ int main()
 		(l.quit)++;
 		i++;
 	}
+	getset(&l);
+	 ft_print_instructoin();
+	
+	// t_group *lst;
+	// i = 0;
 
-	//ft_get_best_grp(&(l.g), 20); //
-	t_group *lst;
-	i = 0;
-
-	while (i < 2)
-	{
-		lst = (l.g)[i];
-		while (lst)
-		{
-			ft_printf("i = %d  str = %s   \n", i, lst->grp);
-			lst = lst->next;
-		}
-		ft_putchar('\n');
-		ft_putchar('\n');
-		ft_putchar('\n');
-		i++;
-	}
+	// while (i < 2)
+	// {
+	// 	lst = (l.g)[i];
+	// 	while (lst)
+	// 	{
+	// 		ft_printf("i = %d  str = %s   \n", i, lst->grp);
+	// 		lst = lst->next;
+	// 	}
+	// 	ft_putchar('\n');
+	// 	ft_putchar('\n');
+	// 	ft_putchar('\n');
+	// 	i++;
+	// }
 }

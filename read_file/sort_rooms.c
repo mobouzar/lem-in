@@ -6,7 +6,7 @@
 /*   By: yelazrak <yelazrak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 17:08:44 by mobouzar          #+#    #+#             */
-/*   Updated: 2019/12/05 17:42:23 by yelazrak         ###   ########.fr       */
+/*   Updated: 2019/12/06 21:40:20 by yelazrak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,6 @@ int		creat_rooms_array(t_lem_in *l, t_room *room, char **start, char **end)
 	sort_rooms_array(l);
 	// i = -1;
 	// while (++i < l->nbrooms)
-	// 	ft_printf("%s\n", l->rooms[i]);
+	// 	ft_printf("i = |%d|		room = |%s|\n",i, l->rooms[i]);
 	return (1);
 }
