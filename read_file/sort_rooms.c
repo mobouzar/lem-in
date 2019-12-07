@@ -6,11 +6,7 @@
 /*   By: mydevice <mydevice@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 17:08:44 by mobouzar          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2019/12/05 02:12:26 by mydevice         ###   ########.fr       */
-=======
-/*   Updated: 2019/12/06 21:40:20 by yelazrak         ###   ########.fr       */
->>>>>>> 2234dd0b42504bee1e2886b08ca92914e094a06a
+/*   Updated: 2019/12/07 18:58:25 by mydevice         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +23,9 @@ int		contains(t_lem_in *l, char *element, char *start, char *end)
 	while (i <= len)
 	{
 		m = (i + len) / 2;
-<<<<<<< HEAD
-		if (ft_strstr(l->rooms[m], start))
-			l->start = m;
-		else if (ft_strstr(l->rooms[m], end))
-=======
 		if (!ft_strcmp(l->rooms[m], start))
 			l->start = m;
 		else if (!ft_strcmp(l->rooms[m], end))
->>>>>>> 2234dd0b42504bee1e2886b08ca92914e094a06a
 			l->end = m;
 		if (!ft_strcmp(l->rooms[m], element))
 			return (m);

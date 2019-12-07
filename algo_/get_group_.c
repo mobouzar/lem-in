@@ -90,18 +90,10 @@ void        ft_add_group(t_group ***lst, int *visit, int end , int i,int strat)
 {
     t_group  **tmp;
     char     *group;
-<<<<<<< HEAD
-
-    tmp = *lst;
-    // if (tmp[0])
-    //     i = 1;
-    group = ft_convert_int_char(visit, end);
-=======
   
     tmp = *lst;
     group = ft_convert_int_char(visit, end, strat);
     
->>>>>>> 2234dd0b42504bee1e2886b08ca92914e094a06a
     if (!tmp[i])
     {
        tmp[i] = ft_get_group(group);
