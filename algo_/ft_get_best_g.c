@@ -48,10 +48,13 @@ void ft_get_best_grp(t_group ***lst, int nbants)
     int le_1;
     int le_2;
 
+    if (!(*lst)[1] || !(*lst[0]))
+        return ;
+
     g1 = ft_count_group((*lst)[0], &le_1);
     g2 = ft_count_group((*lst)[1], &le_2);
-    g1 = ft_ceil(g1 * nbants, le_1);
-    g2 = ft_ceil(g2 * nbants, le_2);
+    g1 = ft_ceil(g1 + nbants, le_1);
+    g2 = ft_ceil(g2 + nbants, le_2);
     if (g1 < g2)
     {
         ft_free_group(&((*lst)[1]));

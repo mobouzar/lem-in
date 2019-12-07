@@ -6,70 +6,82 @@
 /*   By: mydevice <mydevice@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 13:49:39 by mobouzar          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2019/12/05 01:51:04 by mydevice         ###   ########.fr       */
+=======
+/*   Updated: 2019/12/06 18:15:30 by yelazrak         ###   ########.fr       */
+>>>>>>> 2234dd0b42504bee1e2886b08ca92914e094a06a
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEM_IN_H
-# define LEM_IN_H
+#define LEM_IN_H
 
-# include "../libft/libft.h"
+#include "../libft/libft.h"
 #include <stdio.h>
 
-# define NBANTS 1
-# define ROOM 2
-# define LINK 3
-# define COMMENT 4
-# define START 5
-# define END 6
-# define COMMAND 7
+#define NBANTS 1
+#define ROOM 2
+#define LINK 3
+#define COMMENT 4
+#define START 5
+#define END 6
+#define COMMAND 7
 
-
-
-typedef		struct 		s_group
+typedef struct s_print
 {
-	char				*grp;
-	int					len_g;
-	struct s_group		*next;
-}						t_group;
+	char *name;
+	int nbr_bant;
+	int bant;
+	int len_path;
+	struct s_print *next;
 
-typedef     struct	s_queue
+} t_print;
+
+typedef struct s_group
 {
-	int				node;
-	int				flow;
-	struct s_queue	*next;
-}                   t_queue;
+	char *grp;
+	int len_g;
+	struct s_group *next;
+} t_group;
 
-
-typedef		struct s_bfs
+typedef struct s_queue
 {
-	t_queue  		*q;
-	t_queue  		*last;
-	int     		*vist;
-}					t_bfs;
+	int node;
+	int flow;
+	struct s_queue *next;
+} t_queue;
 
-typedef struct		s_map 
+typedef struct s_bfs
 {
-	char			*data;
-	int				type;
-	struct s_map	*next;
-}					t_map;
+	t_queue *q;
+	t_queue *last;
+	int *vist;
+} t_bfs;
 
-typedef struct		s_point
+typedef struct s_map
 {
-	int				x;
-	int				y;
-}					t_point;
+	char *data;
+	int type;
+	struct s_map *next;
+} t_map;
 
-typedef struct		s_room
+typedef struct s_point
 {
-	t_point			cords;
-	char			*name;
-	struct s_room	*next;
-}					t_room;
+	int x;
+	int y;
+} t_point;
 
-typedef struct		s_lem_in
+typedef struct s_room
 {
+	t_point cords;
+	char *name;
+	struct s_room *next;
+} t_room;
+
+typedef struct s_lem_in
+{
+<<<<<<< HEAD
 	t_queue			**adlist;
 	char			**rooms;
 	int				nbants;
@@ -97,4 +109,36 @@ void					ft_free_queue(t_queue **lst);
 int						ft_index_path_cap(t_lem_in *lem,   int end_room, int strat);
 void    				ft_add_group(t_group ***lst, int *group, int end, int i);
 void    				ft_get_best_grp(t_group ***lst, int nbants);
+=======
+	t_queue **adlist;
+	t_group **g;
+	char **rooms;
+	int nbants;
+	int nbrooms;
+	int start;
+	int end;
+	int nbr_ant_start;
+	int nbr_ant_end;
+	int quit;
+} t_lem_in;
+
+int get_nbants(t_lem_in *l, char *line);
+int read_data(t_map *map, t_lem_in *l);
+int check_room(t_room **r, char *line);
+int get_rooms(t_lem_in *l, t_room **r, t_map **m, char *line);
+int get_links(t_lem_in **l, char *line, char *start, char *end);
+int ft_creat_adj(t_lem_in **lst, int nbrooms);
+int creat_rooms_array(t_lem_in *l, t_room *room, char **start, char **end);
+int contains(t_lem_in *l, char *element, char *start, char *end);
+/***********************************************************************/
+int *_bfs(t_lem_in *lem, int c);
+void ft_index_path(t_lem_in *lem, int end_room, int strat);
+void ft_free_tab(char ***tab);
+void ft_free_queue(t_queue **lst);
+int ft_index_path_cap(t_lem_in *lem, int end_room, int strat);
+void ft_add_group(t_group ***lst, int *group, int end, int i, int j);
+void ft_get_best_grp(t_group ***lst, int nbants);
+t_lem_in *getset(t_lem_in *l);
+void ft_print_instructoin();
+>>>>>>> 2234dd0b42504bee1e2886b08ca92914e094a06a
 #endif

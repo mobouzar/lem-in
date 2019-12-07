@@ -6,7 +6,11 @@
 /*   By: mydevice <mydevice@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 13:49:49 by mobouzar          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2019/12/05 02:27:04 by mydevice         ###   ########.fr       */
+=======
+/*   Updated: 2019/12/05 18:02:36 by yelazrak         ###   ########.fr       */
+>>>>>>> 2234dd0b42504bee1e2886b08ca92914e094a06a
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +91,7 @@ int		read_data(t_map *map, t_lem_in *l)
 					ft_strdel(&line);
 				}
 			}
+			///ft_putendl("hghgsdgs");
 		}
 		else if (is_valid(line, ' ') && check_room(&room, line))
 		{

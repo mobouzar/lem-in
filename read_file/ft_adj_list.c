@@ -6,7 +6,11 @@
 /*   By: mydevice <mydevice@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/29 15:20:23 by mobouzar          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2019/12/05 01:53:58 by mydevice         ###   ########.fr       */
+=======
+/*   Updated: 2019/12/05 17:59:42 by yelazrak         ###   ########.fr       */
+>>>>>>> 2234dd0b42504bee1e2886b08ca92914e094a06a
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +21,11 @@ int		ft_creat_adj(t_lem_in **lst, int nbrooms)
 	if (!((*lst)->adlist = (t_queue **)malloc(sizeof(t_queue *) * nbrooms)))
 		return (0);
 	ft_memset((void *)(*lst)->adlist, '\0', sizeof(t_queue *) * nbrooms);
+	
+	
+	if (!((*lst)->g = (t_group **)malloc(sizeof(t_group *) * 2)))
+		return (0);
+	 ft_memset((void *)(*lst)->g, '\0', sizeof(t_group*) * 2);
 	return (1);
 }
 

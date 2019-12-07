@@ -6,7 +6,7 @@
 #    By: yelazrak <yelazrak@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/26 18:43:13 by yelazrak          #+#    #+#              #
-#    Updated: 2019/12/04 16:12:49 by yelazrak         ###   ########.fr        #
+#    Updated: 2019/12/06 17:01:15 by yelazrak         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,8 @@ c_srcs = algo_/_bfs.c \
 		read_file/parse_.c\
 		main.c \
 		read_file/ft_adj_list.c \
-		read_file/sort_rooms.c 
+		read_file/sort_rooms.c \
+		print_/print_instructoin.c
 
 objs = $(c_srcs:.c=.o)
 INCLUDES = ./include

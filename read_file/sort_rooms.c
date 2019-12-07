@@ -6,7 +6,11 @@
 /*   By: mydevice <mydevice@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 17:08:44 by mobouzar          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2019/12/05 02:12:26 by mydevice         ###   ########.fr       */
+=======
+/*   Updated: 2019/12/06 21:40:20 by yelazrak         ###   ########.fr       */
+>>>>>>> 2234dd0b42504bee1e2886b08ca92914e094a06a
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +27,15 @@ int		contains(t_lem_in *l, char *element, char *start, char *end)
 	while (i <= len)
 	{
 		m = (i + len) / 2;
+<<<<<<< HEAD
 		if (ft_strstr(l->rooms[m], start))
 			l->start = m;
 		else if (ft_strstr(l->rooms[m], end))
+=======
+		if (!ft_strcmp(l->rooms[m], start))
+			l->start = m;
+		else if (!ft_strcmp(l->rooms[m], end))
+>>>>>>> 2234dd0b42504bee1e2886b08ca92914e094a06a
 			l->end = m;
 		if (!ft_strcmp(l->rooms[m], element))
 			return (m);
@@ -47,25 +57,27 @@ void	sort_rooms_array(t_lem_in *l)
 	int		j;
 
 	i = -1;
-	while (++i < l->nbrooms - 1)
+	tmp = NULL;
+	while (++i < l->nbrooms)
 	{
 		j = -1;
-		while (++j < l->nbrooms - i - 1)
-			if (ft_strcmp(l->rooms[j], l->rooms[j + 1]) > 0)
+		while (++j < l->nbrooms)
+			if (ft_strcmp(l->rooms[j], l->rooms[i]) > 0)
 			{
 				len = ft_strlen(l->rooms[j]);
 				if (!(tmp = (char *)malloc(sizeof(char) * len)))
 					return ;
 				ft_strcpy(tmp, l->rooms[j]);
-				ft_strcpy(l->rooms[j], l->rooms[j + 1]);
-				ft_strcpy(l->rooms[j + 1], tmp);
+				ft_strcpy(l->rooms[j], l->rooms[i]);
+				ft_strcpy(l->rooms[i], tmp);
+				ft_strdel(&tmp);
 			}
 	}
 }
 
 int		creat_rooms_array(t_lem_in *l, t_room *room, char **start, char **end)
 {
-	int	i;
+	int		i;
 
 	i = -1;
 	if (!(l->rooms = (char **)malloc(sizeof(char *) * l->nbrooms)))
@@ -80,5 +92,8 @@ int		creat_rooms_array(t_lem_in *l, t_room *room, char **start, char **end)
 		room = room->next;
 	}
 	sort_rooms_array(l);
+	// i = -1;
+	// while (++i < l->nbrooms)
+	// 	ft_printf("i = |%d|		room = |%s|\n",i, l->rooms[i]);
 	return (1);
 }
