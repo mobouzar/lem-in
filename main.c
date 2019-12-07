@@ -1,4 +1,4 @@
-#include "lem_in.h"
+#include "include/lem_in.h"
 
 static void ft_get_path_(t_lem_in *lst, int *path, int i)
 {
@@ -18,18 +18,18 @@ int main()
 	int *path;
 	t_lem_in l;
 	t_map *map;
-	t_map *head;
+	//t_map *head;
 	int   i;
 
 	i = 0;
 	map = (t_map *)malloc(sizeof(t_map));
 	ft_memset((void *)map, '\0', sizeof(t_map));
-	head = map;
+	//head = map;
 	read_data(map, &l);
 
 	path = NULL;
-	printf("\n\nstrat = %d			end = %d\n", l.start, l.end);
-	while (i < 100)
+	// printf("\n\nstrat = %d			end = %d\n", l.start, l.end);
+	//while (i < 100)
 	{
 		while ((path = _bfs(&l, i)))
 		{
@@ -37,11 +37,11 @@ int main()
 			if (path)
 			{
 				ft_putnbr(l.end);
-				ft_printf("\n\n");
+				ft_printf("\n");
 			}
 			path = NULL;
 		}
 		i++;
-		ft_putendl("------------");
+		// ft_putendl("------------");
 	}
 }

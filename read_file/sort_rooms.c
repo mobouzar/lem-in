@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   sort_rooms.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yelazrak <yelazrak@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mydevice <mydevice@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 17:08:44 by mobouzar          #+#    #+#             */
-/*   Updated: 2019/12/04 15:46:20 by yelazrak         ###   ########.fr       */
+/*   Updated: 2019/12/05 02:12:26 by mydevice         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem_in.h"
+#include "../include/lem_in.h"
 
-int		contains(t_lem_in *l, char *element)
+int		contains(t_lem_in *l, char *element, char *start, char *end)
 {
 	int	len;
 	int	i;
@@ -23,6 +23,10 @@ int		contains(t_lem_in *l, char *element)
 	while (i <= len)
 	{
 		m = (i + len) / 2;
+		if (ft_strstr(l->rooms[m], start))
+			l->start = m;
+		else if (ft_strstr(l->rooms[m], end))
+			l->end = m;
 		if (!ft_strcmp(l->rooms[m], element))
 			return (m);
 		else if (ft_strcmp(l->rooms[m], element) > 0)
@@ -59,7 +63,7 @@ void	sort_rooms_array(t_lem_in *l)
 	}
 }
 
-int		creat_rooms_array(t_lem_in *l, t_room *room)
+int		creat_rooms_array(t_lem_in *l, t_room *room, char **start, char **end)
 {
 	int	i;
 
@@ -68,6 +72,10 @@ int		creat_rooms_array(t_lem_in *l, t_room *room)
 		return (0);
 	while (room->next && ++i < l->nbrooms)
 	{
+		if (i == l->start)
+			*start = ft_strdup(room->name);
+		else if (i == l->end)
+			*end = ft_strdup(room->name);
 		l->rooms[i] = room->name;
 		room = room->next;
 	}

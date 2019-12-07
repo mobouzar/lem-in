@@ -1,4 +1,4 @@
-#include "lem_in.h"
+#include "../include/lem_in.h"
 
 
 static void		ft_push_queue(t_queue **lst, int node)
@@ -42,7 +42,6 @@ int ft_index_path_cap(t_lem_in *lst,  int end_room, int strat)
 	return (0);
 }
 
-
 static t_queue			*ft_front_queue(t_queue **q)
 {
 	t_queue *tmp;
@@ -59,11 +58,8 @@ static t_queue			*ft_front_queue(t_queue **q)
 
 static	void _init(t_bfs **bfs,int **vist, int nbroom , int strat)
 {
-	t_bfs *lst;
-
-	lst = (*bfs);
 	if (!((*bfs) = (t_bfs *)malloc(sizeof(t_bfs))))
-			return ;
+		return ;
 	ft_memset((*bfs), '\0', sizeof(t_bfs));
 	if (!((*vist) = (int *)malloc(sizeof(int) * (nbroom))))
 		return ;
@@ -78,10 +74,8 @@ static	void _init(t_bfs **bfs,int **vist, int nbroom , int strat)
 
 void	ft_index_path(t_lem_in *lem, int end_room, int strat)
 {
-	int i;
 	t_queue *q;
 
-	i = 0;
 	q = lem->adlist[strat];
 	while (q)
 	{
@@ -94,16 +88,11 @@ void	ft_index_path(t_lem_in *lem, int end_room, int strat)
 			else
 			{
 				q->flow++;
-			}
-			
+			}	
 		}
-			
-		
 		q = q->next;
 	}
 }
-
-
 
 int		*_bfs(t_lem_in *lem, int c)
 {
@@ -113,7 +102,7 @@ int		*_bfs(t_lem_in *lem, int c)
 	int 	*vist;
 	
 	(void)lem;
-	_init(&lst, &vist,lem->nbrooms, lem->start);//lem->nbrooms
+	_init(&lst, &vist,lem->nbrooms, lem->start);
 	while (lst->q)
 	{
 		tmp = ft_front_queue(&lst->q);
@@ -122,18 +111,17 @@ int		*_bfs(t_lem_in *lem, int c)
 		{
 			if (queue->node == lem->end && queue->flow == c)
 			{
-				//printf("p = %d			f = %d\n",tmp->node,queue->node);
 				vist[queue->node] = tmp->node;
-				 ft_free_queue(&lst->q);
-				 ft_memdel((void **)&lst);
+				ft_free_queue(&lst->q);
+				ft_memdel((void **)&lst);
 				return (vist);
-			}		
+			}
 			if (vist[queue->node] == -1 && queue->flow == c)
 			{
 				vist[queue->node] = tmp->node;
 				ft_push_queue(&lst->last, queue->node);	
 				if (!(lst->q))
-					lst->q = lst->last;
+				lst->q = lst->last;
 			}
 			queue = queue->next;
 		}

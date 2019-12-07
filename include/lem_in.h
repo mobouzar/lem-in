@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yelazrak <yelazrak@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mydevice <mydevice@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 13:49:39 by mobouzar          #+#    #+#             */
-/*   Updated: 2019/12/04 19:26:33 by yelazrak         ###   ########.fr       */
+/*   Updated: 2019/12/05 01:51:04 by mydevice         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,10 +82,10 @@ int		get_nbants(t_lem_in *l, char *line);
 int		read_data(t_map *map, t_lem_in *l);
 int		check_room(t_room **r, char *line);
 int		get_rooms(t_lem_in *l, t_room **r, t_map **m, char *line);
-int		get_links(t_lem_in **l, char *line);
+int		get_links(t_lem_in **l, char *line, char *start, char *end);
 int		ft_creat_adj(t_lem_in **lst, int nbrooms);
-int		creat_rooms_array(t_lem_in *l, t_room *room);
-int		contains(t_lem_in *l, char *element);
+int		creat_rooms_array(t_lem_in *l, t_room *room, char **start, char **end);
+int		contains(t_lem_in *l, char *element, char *start, char *end);
 
 // int		*_bfs(t_lem_in *lem, t_adjs *adj);
 // void	ft_index_path(t_adjs *lst,  int end_room, int strat);

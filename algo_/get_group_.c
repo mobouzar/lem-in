@@ -1,4 +1,4 @@
-#include "lem_in.h"
+#include "../include/lem_in.h"
 
 
 static t_group *ft_get_group(char *group)
@@ -89,10 +89,8 @@ void        ft_add_group(t_group ***lst, int *visit, int end , int i)
 {
     t_group  **tmp;
     char     *group;
-    int       a;
 
     tmp = *lst;
-    a = 0;
     // if (tmp[0])
     //     i = 1;
     group = ft_convert_int_char(visit, end);

@@ -1,4 +1,4 @@
-#include "lem_in.h"
+#include "../include/lem_in.h"
 
 static int ft_path_len(char *path)
 {

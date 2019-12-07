@@ -1,4 +1,4 @@
-#include "lem_in.h"
+#include "../include/lem_in.h"
 
 
 void    ft_free_tab(char ***tab)
