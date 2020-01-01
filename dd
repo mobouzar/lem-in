@@ -1,0 +1,1 @@
+/g --flow-thousand  >d && $(./lem-in < d | grep L | wc -l >m)  &&  $(./lemin < d | grep L | wc -l >>m)

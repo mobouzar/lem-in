@@ -22,7 +22,7 @@ static void		ft_push_queue(t_queue **lst, int node)
 	}
 }
 
-int ft_index_path_cap(t_lem_in *lst,  int end_room, int strat)
+int ft_index_path_cap(t_lem_in *lst,  int end_room, int strat, int index)
 {
 	t_queue *q;
 
@@ -31,7 +31,7 @@ int ft_index_path_cap(t_lem_in *lst,  int end_room, int strat)
 	{
 		if (q->node == end_room)
 		{
-			if (q->flow == 1)
+			if (q->flow == index) //1)
 			{
 				q->flow = -2;
 				return (1);
@@ -72,7 +72,7 @@ static	void _init(t_bfs **bfs,int **vist, int nbroom , int strat)
 
 
 
-void	ft_index_path(t_lem_in *lem, int end_room, int strat)
+void	ft_index_path(t_lem_in *lem, int end_room, int strat, int index)
 {
 	t_queue *q;
 
@@ -81,7 +81,7 @@ void	ft_index_path(t_lem_in *lem, int end_room, int strat)
 	{
 		if (q->node == end_room)
 		{
-			if (ft_index_path_cap(lem, strat,   end_room))
+			if (ft_index_path_cap(lem, strat,   end_room, index))
 			{
 					q->flow = -2;
 			}
