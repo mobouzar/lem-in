@@ -69,9 +69,6 @@ static	void _init(t_bfs **bfs,int **vist, int nbroom , int strat)
 	(*bfs)->q = (*bfs)->last;
 }
 
-
-
-
 void	ft_index_path(t_lem_in *lem, int end_room, int strat, int index)
 {
 	t_queue *q;

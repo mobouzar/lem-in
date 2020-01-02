@@ -17,8 +17,8 @@ void ft_get_path_(t_lem_in *lst, int *path, int i, int index)
 	ft_get_path_(lst, path, path[i], index); //
 	//ft_printf("%s ==> ", lst->rooms[path[i]]);
 	ft_index_path(lst, i, path[i],index);
-	ft_index_path_cap(lst, path[i], i,index);
-	ft_index_path(lst,  path[i], i,index);
+	//ft_index_path_cap(lst, path[i], i,index);
+	//ft_index_path(lst,  path[i], i,index);
 }
 
 int main(void)
@@ -37,7 +37,7 @@ int main(void)
 	 l.nbr_ant_start = 0;
 	i  = 0;
 	getset(&l);
-	while (i < 100)
+	while (100)
 	{
 		while ((path = _bfs(&l, i)))
 		{
@@ -45,12 +45,15 @@ int main(void)
 				ft_add_group(&(l.g), path, l.end,0, l.start);
 			else
 				ft_add_group(&(l.g), path, l.end,1, l.start);
-			ft_get_path_(&l, path, l.end, i);
+			ft_get_path_(&l, path, l.end, i + 1);
+			// ft_putstr(l.rooms[l.end]);
+			// ft_putchar('\n');
 			path = NULL;
 		}
+		//ft_putendl("----------------------------------");
 		ft_get_best_grp(&(l.g), l.nbants);
-		// if (getset(0)->quit == 0)
-		// 	break ;
+		if (getset(0)->quit == 0)
+			break ;
 		i++;
 	}
 	//getset(&l);
