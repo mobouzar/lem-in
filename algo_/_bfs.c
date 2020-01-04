@@ -27,7 +27,8 @@ int ft_index_path_cap(t_lem_in *lst, int end_room, int strat, int index)
 	int			i;
 	(void)index;
 
-	i = (lst->index == 0 ? 1 : 0);
+	i = (index == 0 ? 1 : 0);
+	printf("ii = %d			index = %d\n",i, index);
 	q = lst->adlist[strat];
 	while (q)
 	{
@@ -35,7 +36,7 @@ int ft_index_path_cap(t_lem_in *lst, int end_room, int strat, int index)
 		{
 			if (q->flow  == i)//index) //1)
 			{
-				q->flow = (lst->index == 0 ? 0 : 1);
+				q->flow = (i == 0 ? 1 : 0);//01
 				return (1);
 			}
 		}
@@ -82,9 +83,9 @@ void ft_index_path(t_lem_in *lem, int end_room, int strat, int index)
 		if (q->node == end_room)
 		{
 			if (ft_index_path_cap(lem, strat, end_room, index))
-				q->flow = (lem->index == 0 ? 1 : 0);//-2;
+				q->flow = (index == 0 ? 1 : 0);//-2;
 			else
-				q->flow = (lem->index == 0 ? 1 : 0);
+				q->flow = (index == 0 ? 1 : 0);
 		}
 		q = q->next;
 	}
@@ -93,6 +94,7 @@ int ft_index_node(t_lem_in *lem, int end_room, int strat, int index)
 {
 	t_queue *q;
 	int i;
+	(void)index;
 
 	q = lem->adlist[strat];
 	i = (index == 0 ? 1 : 0);
@@ -145,7 +147,7 @@ int *_bfs(t_lem_in *lem, int c, int *node)
 			((node[tmp->node] == 0 || (node[tmp->node] == 1 &&
 			(ft_index_node(lem, tmp->node, queue->node, c) == 0 &&
 			ft_index_node(lem, vist[tmp->node], tmp->node, c) == 1))) || 
-			(node[tmp->node] == 0 || (node[tmp->node] == 1 &&
+			((node[tmp->node] == 1 &&
 			(ft_index_node(lem, tmp->node, queue->node, c) == 1 &&
 			ft_index_node(lem, vist[tmp->node], tmp->node, c) == 0)))))
 			{
