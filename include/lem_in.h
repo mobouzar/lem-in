@@ -6,7 +6,7 @@
 /*   By: yelazrak <yelazrak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 13:49:39 by mobouzar          #+#    #+#             */
-/*   Updated: 2020/01/01 19:57:17 by yelazrak         ###   ########.fr       */
+/*   Updated: 2020/01/04 11:22:41 by yelazrak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ typedef struct s_lem_in
 	int nbr_ant_start;
 	int nbr_ant_end;
 	int quit;
+	int index;
 } t_lem_in;
 
 int get_nbants(t_lem_in *l, char *line);
@@ -100,7 +101,7 @@ int creat_rooms_array(t_lem_in *l, t_room *room, char **start, char **end);
 int contains(t_lem_in *l, char *element, char *start, char *end);
 /***********************************************************************/
 /////
-int *_bfs(t_lem_in *lem, int c);
+int *_bfs(t_lem_in *lem, int c, int *node);
 void ft_index_path(t_lem_in *lem, int end_room, int strat, int index);
 void ft_free_tab(char ***tab);
 void ft_free_queue(t_queue **lst);

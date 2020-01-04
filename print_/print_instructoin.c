@@ -96,7 +96,6 @@ static t_print **ft_chang_path(t_group *g, int lenght, char **tab_name)
 	return (init);
 }
 
-
 void ft_print_(t_print ***init, int path, int path_2)
 {
 	t_print **g;
@@ -154,15 +153,15 @@ int ft_get_best_path_(t_group **lst, int ants)
 	{
 		len = ft_path_len(tmp->grp);
 		k += len;
-	
-	//	close(h);
+
+		//	close(h);
 		g1 = ft_ceil(k + ants, j);
 		if (getset(0)->nbants == ants)
 		{
-			dprintf((h = open("/dev/ttys006", O_RDWR)), "strg1 = %d   int = %d \n", g1, j);
+			dprintf((h = open("/dev/ttys011", O_RDWR)), "strg1 = %d   int = %d \n", g1, j);
 			close(h);
 		}
-		if (g1 > scor && scor != -1)//=
+		if (g1 > scor && scor != -1) //=
 			return (j - 1);
 		if (scor == -1)
 			scor = g1;
@@ -188,22 +187,24 @@ void ft_print_instructoin()
 	lem->quit = 0;
 	t_group *tmp = lem->g[0];
 	j = 0;
-	dprintf((h = open("/dev/ttys006", O_RDWR)), "\e[1;1H\e[2J");	close(h);
+	dprintf((h = open("/dev/ttys011", O_RDWR)), "\e[1;1H\e[2J");
+	close(h);
 	len_root = ft_len_path(lem->g[0]);
 	init = ft_chang_path(lem->g[0], len_root, lem->rooms);
-	 i = ft_get_best_path_(&tmp, lem->nbants);
+	i = ft_get_best_path_(&tmp, lem->nbants);
 	// j = i;
-	dprintf((h = open("/dev/ttys005", O_RDWR)), "\e[1;1H\e[2J");	close(h);
+	dprintf((h = open("/dev/ttys005", O_RDWR)), "\e[1;1H\e[2J");
+	close(h);
 	dprintf((h = open("/dev/ttys005", O_RDWR)), "pathii=%d \n", i);
 	close(h);
 	i = -1;
 	//j = i;
-	while (lem->nbr_ant_end < lem->nbants)
-	{ 
-		j = ft_get_best_path_(&tmp, lem->nbants  - lem->nbr_ant_start);
-		if (i == -1)
-			i = j;
-		ft_print_(&init, i, j);
-		
-	}
+	// while (lem->nbr_ant_end < lem->nbants)
+	// {
+	// 	j = ft_get_best_path_(&tmp, lem->nbants  - lem->nbr_ant_start);
+	// 	if (i == -1)
+	// 		i = j;
+	// 	ft_print_(&init, i, j);
+
+	// }
 }

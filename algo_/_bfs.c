@@ -1,12 +1,11 @@
 #include "../include/lem_in.h"
 
-
-static void		ft_push_queue(t_queue **lst, int node)
+static void ft_push_queue(t_queue **lst, int node)
 {
 	if (!(*lst))
 	{
-		if (!((*lst)= (t_queue *)malloc(sizeof(t_queue))))
-			return ;
+		if (!((*lst) = (t_queue *)malloc(sizeof(t_queue))))
+			return;
 		(*lst)->node = node;
 		(*lst)->flow = 0;
 		(*lst)->next = NULL;
@@ -14,7 +13,7 @@ static void		ft_push_queue(t_queue **lst, int node)
 	else
 	{
 		if (!((*lst)->next = (t_queue *)malloc(sizeof(t_queue))))
-			return ;
+			return;
 		(*lst)->next->node = node;
 		(*lst)->next->flow = 0;
 		(*lst)->next->next = NULL;
@@ -22,18 +21,21 @@ static void		ft_push_queue(t_queue **lst, int node)
 	}
 }
 
-int ft_index_path_cap(t_lem_in *lst,  int end_room, int strat, int index)
+int ft_index_path_cap(t_lem_in *lst, int end_room, int strat, int index)
 {
 	t_queue *q;
+	int			i;
+	(void)index;
 
+	i = (lst->index == 0 ? 1 : 0);
 	q = lst->adlist[strat];
 	while (q)
 	{
 		if (q->node == end_room)
 		{
-			if (q->flow == index) //1)
+			if (q->flow  == i)//index) //1)
 			{
-				q->flow = -2;
+				q->flow = (lst->index == 0 ? 0 : 1);
 				return (1);
 			}
 		}
@@ -42,7 +44,7 @@ int ft_index_path_cap(t_lem_in *lst,  int end_room, int strat, int index)
 	return (0);
 }
 
-static t_queue			*ft_front_queue(t_queue **q)
+static t_queue *ft_front_queue(t_queue **q)
 {
 	t_queue *tmp;
 
@@ -56,20 +58,21 @@ static t_queue			*ft_front_queue(t_queue **q)
 	return (tmp);
 }
 
-static	void _init(t_bfs **bfs,int **vist, int nbroom , int strat)
+static void _init(t_bfs **bfs, int **vist, int nbroom, int strat)
 {
+	(*bfs) = NULL;
 	if (!((*bfs) = (t_bfs *)malloc(sizeof(t_bfs))))
-		return ;
+		return;
 	ft_memset((*bfs), '\0', sizeof(t_bfs));
 	if (!((*vist) = (int *)malloc(sizeof(int) * (nbroom))))
-		return ;
+		return;
 	ft_memset((*vist), -1, sizeof(int) * (nbroom));
 	ft_push_queue(&(*bfs)->last, strat);
 	(*vist)[strat] = 0;
 	(*bfs)->q = (*bfs)->last;
 }
 
-void	ft_index_path(t_lem_in *lem, int end_room, int strat, int index)
+void ft_index_path(t_lem_in *lem, int end_room, int strat, int index)
 {
 	t_queue *q;
 
@@ -78,28 +81,49 @@ void	ft_index_path(t_lem_in *lem, int end_room, int strat, int index)
 	{
 		if (q->node == end_room)
 		{
-			if (ft_index_path_cap(lem, strat,   end_room, index))
-			{
-					q->flow = -2;
-			}
+			if (ft_index_path_cap(lem, strat, end_room, index))
+				q->flow = (lem->index == 0 ? 1 : 0);//-2;
 			else
-			{
-				q->flow++;
-			}	
+				q->flow = (lem->index == 0 ? 1 : 0);
 		}
 		q = q->next;
 	}
 }
+int ft_index_node(t_lem_in *lem, int end_room, int strat, int index)
+{
+	t_queue *q;
+	int i;
 
-int		*_bfs(t_lem_in *lem, int c)
+	q = lem->adlist[strat];
+	i = (index == 0 ? 1 : 0);
+	while (q)
+	{
+		if (q->node == end_room)
+		{
+			if (q->flow == i)//index + 1)
+			{
+				return (0);
+			}
+			else
+			{
+				return (1);
+			}
+		}
+		q = q->next;
+	}
+	return (0);
+}
+
+int *_bfs(t_lem_in *lem, int c, int *node)
 {
 	t_bfs *lst;
 	t_queue *tmp;
 	t_queue *queue;
-	int 	*vist;
-	
+	int *vist;
+
 	(void)lem;
-	_init(&lst, &vist,lem->nbrooms, lem->start);
+	(void)node;
+	_init(&lst, &vist, lem->nbrooms, lem->start);
 	while (lst->q)
 	{
 		tmp = ft_front_queue(&lst->q);
@@ -113,12 +137,25 @@ int		*_bfs(t_lem_in *lem, int c)
 				ft_memdel((void **)&lst);
 				return (vist);
 			}
-			if (vist[queue->node] == -1 && queue->flow == c)
+		//	int h = 0;
+			// dprintf((h = open("/dev/ttys010", O_RDWR)), "tmp=%d		queue=%d   visit_tmp=%s =>%s		int=%d			node[] = %d\n",
+			// 		ft_index_node(lem, tmp->node, queue->node, c), ft_index_node(lem, vist[tmp->node], tmp->node, c), lem->rooms[tmp->node], lem->rooms[queue->node], c, node[tmp->node]);
+			// close(h);
+			if (vist[queue->node] == -1 && queue->flow == c &&
+			((node[tmp->node] == 0 || (node[tmp->node] == 1 &&
+			(ft_index_node(lem, tmp->node, queue->node, c) == 0 &&
+			ft_index_node(lem, vist[tmp->node], tmp->node, c) == 1))) || 
+			(node[tmp->node] == 0 || (node[tmp->node] == 1 &&
+			(ft_index_node(lem, tmp->node, queue->node, c) == 1 &&
+			ft_index_node(lem, vist[tmp->node], tmp->node, c) == 0)))))
 			{
+				//ft_printf("%s ==>%s 			%d\n", lem->rooms[tmp->node],lem->rooms[queue->node], c);
+				//dprintf((h = open("/dev/ttys012", O_RDWR)), "node=%s	\n", lem->rooms[queue->node]);
+			//	close(h);
 				vist[queue->node] = tmp->node;
-				ft_push_queue(&lst->last, queue->node);	
+				ft_push_queue(&lst->last, queue->node);
 				if (!(lst->q))
-				lst->q = lst->last;
+					lst->q = lst->last;
 			}
 			queue = queue->next;
 		}

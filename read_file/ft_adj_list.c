@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_adj_list.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mydevice <mydevice@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yelazrak <yelazrak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/29 15:20:23 by mobouzar          #+#    #+#             */
-/*   Updated: 2019/12/07 18:57:49 by mydevice         ###   ########.fr       */
+/*   Updated: 2020/01/03 11:22:36 by yelazrak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ void	ft_add_node(t_lem_in **adj_list, int room_1, int room_2)
 		return ;
 	if (!(tmp_2 = (t_queue *)malloc(sizeof(t_queue))))
 		return ;
+	ft_memset((void *)tmp_2, '\0', sizeof(t_queue));
+	ft_memset((void *)tmp_1, '\0', sizeof(t_queue));
 	tmp_1->node = room_1;
 	tmp_1->next = NULL;
 	tmp_2->node = room_2;
