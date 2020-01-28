@@ -1,6 +1,16 @@
 #include "include/lem_in.h"
 
-t_lem_in * getset(t_lem_in *l)
+void print_data(t_map *data)
+{
+	while (data->next)
+	{
+		ft_printf("%s\n", data->data);
+		data = data->next;
+	}
+	ft_printf("\n");
+}
+
+t_lem_in *getset(t_lem_in *l)
 {
 	static t_lem_in *g;
 
@@ -9,19 +19,64 @@ t_lem_in * getset(t_lem_in *l)
 	return (g);
 }
 
-void ft_get_path_(t_lem_in *lst, int *path, int i, int index, int *node)
-{
-	if (i == lst->start || path == NULL)
-		return;
+// void ft_get_path_(t_lem_in *lst, int *path, int i, int index, int *node)
+// {
+// 	int h = 0;
 
-	ft_get_path_(lst, path, path[i], index, node);
-	if (path[i] != lst->start && path[i] != lst->end)
+// 	(void)h;
+// 	if (i == lst->start || path == NULL)
+// 		return;
+
+// 	ft_get_path_(lst, path, path[i], index, node);
+// 	if (path[i] != lst->start && path[i] != lst->end)
+// 	{
+// 		lst->adlist[i]->node_parent = path[i];
+// 		lst->adlist[path[i]]->node_visit = index;
+// 		node[path[i]] = 1;
+// 		//ft_printf("|%s| ==> \n", lst->rooms[path[i]]);
+// 	}
+// 	//dprintf((h = open("jjj", O_RDWR | O_APPEND)),"%s-", lst->rooms[path[i]]);close(h);
+
+// 	ft_index_path(lst, i, path[i], index);
+// }
+
+void ft_get_path_(t_lem_in *lst, int *path, int index, int *node)
+{
+	int i;
+	int min;
+	//int h;
+
+
+	if (lst->end == lst->start || path == NULL)
+		return;
+	i = lst->end;
+	min = lst->start;
+	while (i != min)
 	{
-	 	node[path[i]] = 1;
-		///ft_printf("|%s| ==> \n", lst->rooms[path[i]]);
+		if (path[i] != lst->start && path[i] != lst->end)
+			node[path[i]] = 1;
+		lst->adlist[i]->node_parent = path[i];
+		ft_index_path(lst, i, path[i], index);
+		//dprintf((h = open("jjj", O_RDWR | O_APPEND)),"%s-", lst->rooms[path[i]]);close(h);
+		i = path[i];
 	}
-//	ft_printf("%s ==> ", lst->rooms[path[i]]);
-	ft_index_path(lst, i, path[i],index);
+}
+
+void ft_get_path_22(t_lem_in *lst, int *path, int *node)
+{
+	int i;
+	
+	int min;
+	if (lst->end == lst->start || path == NULL)
+		return;
+	i = lst->end;
+	min = lst->start;
+	while (i != min)
+	{
+		if (path[i] != lst->start && path[i] != lst->end)
+			node[path[i]] = 1;
+		i = path[i];
+	}
 }
 
 // void			intersection_()
@@ -30,41 +85,51 @@ int main(void)
 	int *path;
 	t_lem_in l;
 	t_map *map;
+	t_map *head;
 	int *node_visit;
+	int *node_visit22;
 	int i;
 
 	i = 0;
 	node_visit = NULL;
 	map = (t_map *)malloc(sizeof(t_map));
+	head = map;
 	ft_memset((void *)&l, '\0', sizeof(t_lem_in));
 	ft_memset((void *)map, '\0', sizeof(t_map));
 	read_data(map, &l);
-	node_visit = (int *)malloc(sizeof(int) * (l.nbrooms));
+	node_visit = (int *)malloc(sizeof(int) * ((l.nbrooms)));
+	node_visit22 = (int *)malloc(sizeof(int) * ((l.nbrooms)));
 	path = NULL;
 	l.quit = 1;
-	 l.nbr_ant_start = 0;
-	i  = 0;
+	int h;
+	(void)h;
+	int j = 0;
 	getset(&l);
-	while (1)
+	//while (1)
 	{
-		ft_memset((void *)node_visit, 0,sizeof(int) * l.nbrooms); 
-		while ((path = _bfs(&l, i % 2 , node_visit)))
+		ft_memset((void *)node_visit, 0, sizeof(int) * l.nbrooms);
+		while ((path = _bfs(&l, i % 2, node_visit, 0, i)))
 		{
-			l.index = i % 2;
-			if (i == 0)
-				ft_add_group(&(l.g), path, l.end,0, l.start);
-			else
-				ft_add_group(&(l.g), path, l.end,1, l.start);
-			ft_get_path_(&l, path, l.end, i % 2, node_visit);
-			//ft_putstr(l.rooms[l.end]);
-			//ft_putchar('\n');
+			ft_get_path_(&l, path, i % 2, node_visit);
+			//dprintf((h = open("jjj", O_RDWR | O_APPEND)),"%s", l.rooms[l.end]);close(h);
 			path = NULL;
+			ft_memset((void *)node_visit22, 0, sizeof(int) * l.nbrooms);
+			while ((path = _bfs(&l, (i + 1) % 2, node_visit22, 1, j)))
+			{
+				ft_get_path_22(&l, path, node_visit22);
+				if (j == 0)
+					ft_add_group(&(l.g), path, l.end, 0, l.start);
+				else
+					ft_add_group(&(l.g), path, l.end, 1, l.start);
+				path = NULL;
+			}
+			j++;
+			 ft_get_best_grp(&(l.g), l.nbants);
+			if (getset(0)->quit == 0)
+				break;
 		}
-		ft_putendl("----------------------------------");
-		ft_get_best_grp(&(l.g), l.nbants);
-		if (getset(0)->quit == 0)
-			break ;
 		i++;
 	}
+	print_data(head);
 	ft_print_instructoin();
 }

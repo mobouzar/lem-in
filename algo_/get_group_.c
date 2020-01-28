@@ -6,7 +6,7 @@
 /*   By: yelazrak <yelazrak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/24 22:28:26 by yelazrak          #+#    #+#             */
-/*   Updated: 2019/12/24 22:30:36 by yelazrak         ###   ########.fr       */
+/*   Updated: 2020/01/24 12:48:54 by yelazrak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ static t_group	*ft_get_group(char *group)
 		return (NULL);
 	ft_memset((void *)g, '\0', sizeof(t_group));
 	g->grp = ft_strdup(group);
-	g->len_g = ft_strlen(group);
+	g->len_g = -1;
+	g->scor = -1;
 	g->next = NULL;
 	return (g);
 }
@@ -65,13 +66,11 @@ static int		ft_check_path(char *str, char *g)
 	return (0);
 }
 
-static int		ft_add_path(t_group **list, char *group, int i)
+static int		ft_add_path(t_group **lst, char *group, int i)
 {
 	t_group		*tmp;
-	t_group		**lst;
 	int			a;
 
-	lst = list;
 	tmp = lst[i];
 	a = 0;
 	while (tmp->next)
@@ -80,6 +79,8 @@ static int		ft_add_path(t_group **list, char *group, int i)
 			a = 1;
 		tmp = tmp->next;
 	}
+	if (ft_check_path(tmp->grp, group))
+			a = 1;
 	if (a == 0)
 	{
 		if (!lst[i])
@@ -95,6 +96,7 @@ void ft_add_group(t_group ***lst, int *visit, int end, int i, int strat)
 {
 	t_group **tmp;
 	char *group;
+	//int h;
 
 	tmp = *lst;
 	group = ft_convert_int_char(visit, end, strat);

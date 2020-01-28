@@ -1,18 +1,7 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_get_best_g.c                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: yelazrak <yelazrak@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/24 22:24:39 by yelazrak          #+#    #+#             */
-/*   Updated: 2020/01/04 12:46:02 by yelazrak         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #include "../include/lem_in.h"
 
-static int		ft_path_len(char *path)
+static int ft_path_len(char *path)
 {
 	int i;
 	int len;
@@ -25,7 +14,7 @@ static int		ft_path_len(char *path)
 	return (len - 1);
 }
 
-int		ft_count_group(t_group *lst, int *i)
+int ft_count_group(t_group *lst, int *i)
 {
 	int len;
 
@@ -40,7 +29,7 @@ int		ft_count_group(t_group *lst, int *i)
 	return (len);
 }
 
-static void		ft_free_group(t_group **lst)
+static void ft_free_group(t_group **lst)
 {
 	t_group *tmp;
 	t_group *tmp_2;
@@ -55,28 +44,32 @@ static void		ft_free_group(t_group **lst)
 	*lst = NULL;
 }
 
-int				ft_get_best_scor(t_group **lst)
+int ft_get_best_scor(t_group **lst)
 {
 	t_group *tmp;
-	int		scor;
-	int		ants;
-	int		j;
+	int scor;
+	int ants;
+	int j;
 	int k;
-	int		g1;
+	int g1;
 
 	scor = -1;
 	j = 1;
 	k = 0;
 	ants = getset(0)->nbants;
 	tmp = *lst;
+	// if ((*lst)->scor != -1 && (*lst)->len_g != -1)
+	// 	return ((*lst)->scor);
 	while (tmp)
 	{
 		k += ft_path_len(tmp->grp);
-		g1 = ft_ceil( k + ants, j);
-		if (scor == -1)
-			scor = g1;
-		if (g1 > scor )
+		g1 = ft_ceil(k + ants, j);
+		if (g1 > scor && scor != -1)
+		{
+			(*lst)->len_g = j - 1;
+			(*lst)->scor = scor;
 			return (scor);
+		}
 		scor = g1;
 		j++;
 		tmp = tmp->next;
@@ -84,35 +77,38 @@ int				ft_get_best_scor(t_group **lst)
 	return (scor);
 }
 
-void			ft_get_best_grp(t_group ***lst, int nbants)
+void ft_get_best_grp(t_group ***lst, int nbants)
 {
-	int g1;
-	int g2;
+	int g1 = -1;
+	int g2 = -1;
 	int  h = 0;
-	(void)nbants;//ft_putendl("hghgfhgdjhfghjd");
+	(void)nbants; //ft_putendl("hghgfhgdjhfghjd");
+
+	// if ((*lst)[0])
+	// 	g1 = ft_get_best_scor(&(*lst)[0]);
+	// if ((*lst)[1])
+	// 	g2 = ft_get_best_scor(&(*lst)[1]);
+
 	if (!(*lst)[1] || !(*lst[0]))
-		return ;
+		return;
 	g1 = ft_get_best_scor(&(*lst)[0]);
 	g2 = ft_get_best_scor(&(*lst)[1]);
-	dprintf((h = open("/dev/ttys008", O_RDWR)), "gg11 = %d   g22 = %d \n", g1, g2);
-	close(h);
-	
-	if (g1 <= g2)//=
+	dprintf((h = open("/dev/ttys002", O_RDWR)), "g1=%d 		g2=%d  \n",g1,g2);close(h);
+	if (g1 < g2)//=
 	{
 		getset(0)->quit = 0;
 		return ;
 	}
-	if (g1 < g2)//!=
-	{
-		ft_free_group(&((*lst)[1]));
-		(*lst)[1] = NULL;
-	}
-	else
+	if (g1 > g2) //++=
 	{
 		ft_free_group(&((*lst)[0]));
 		(*lst)[0] = (*lst)[1];
 		(*lst)[1] = NULL;
 	}
-//printf("kkkk = %d		g1 = %d			g2 = %d\n\n",getset(0)->quit, g1, g2);
+	else
+	{
+		ft_free_group(&((*lst)[1]));
+		(*lst)[1] = NULL;
+	}
+	//printf("kkkk = %d		g1 = %d			g2 = %d\n\n",getset(0)->quit, g1, g2);
 }
-
