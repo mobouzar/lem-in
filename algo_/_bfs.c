@@ -1,37 +1,5 @@
 #include "../include/lem_in.h"
 
-
-
-// int h = 0;
-			// dprintf((h = open("/dev/ttys003", O_RDWR)), "tmp=%d		queue=%d  	nnnoodd = %d	 visit_tmp=%s =>%s		int=%d			node[] = %d\n",
-			// 		ft_index_node(lem, tmp->node, queue->node, c, node), ft_index_node(lem, vist[tmp->node], tmp->node, c, node), ft_node(lem,tmp->node,vist[tmp->node], c, node),lem->rooms[tmp->node], lem->rooms[queue->node], c, node[tmp->node]);
-			// close(h);
-			/*******************/
-
-			// if (vist[queue->node] == -1 && queue->flow == c &&
-			// ((node[tmp->node] == 0 || (node[tmp->node] == 1 &&
-			// ((ft_index_node(lem, tmp->node, queue->node, c, node) == 0) &&  node[queue->node] == 1 &&
-			// ft_index_node(lem, vist[tmp->node], tmp->node, c, node) == 1))) ||
-			// (node[tmp->node] == 1  &&  ft_index_node(lem, tmp->node, queue->node, c, node) == 0 &&
-			// ft_index_node(lem, vist[tmp->node], tmp->node, c, node) == 0 && ft_node(lem,tmp->node,vist[tmp->node], c, node) == 1 ) ||
-			// ((
-			// (ft_index_node(lem, tmp->node, queue->node, c, node) == 1 &&
-			// ft_index_node(lem, vist[tmp->node], tmp->node, c, node) == 0))) ||
-			// ((
-			// (ft_index_node(lem, tmp->node, queue->node, c, node) == 0 && node[vist[tmp->node]] == 1 &&
-			// ft_index_node(lem, vist[tmp->node], tmp->node, c, node) == 0)))))
-
-			/***************************************************/
-			// if (vist[queue->node] == -1 && queue->flow == c &&
-			// 	(node[tmp->node] == 0 || ((ft_index_node(lem, vist[tmp->node], tmp->node, c, node) == 1 &&
-			// 							ft_index_node(lem, tmp->node, queue->node, c, node) == 0) ))||
-			// 			   ( (ft_index_node(lem, vist[tmp->node], tmp->node, c, node) == 0 ||
-			// 				(ft_index_node(lem, tmp->node, queue->node, c, node) == 0))))
-			// if (vist[queue->node] == -1 && queue->flow == c && y == 0 &&
-			// 	(node[tmp->node] == 0 || (node[tmp->node] == 1 && ((ft_index_node(lem, vist[tmp->node], tmp->node, c, node) == 1 && node[vist[tmp->node]] == 0 && node[queue->node] == 1 &&
-			// 														ft_index_node(lem, tmp->node, queue->node, c, node) == 0) ||
-			// 													   (node[vist[tmp->node]] == 1 && ft_index_node(lem, vist[tmp->node], tmp->node, c, node) == 0)))))
-
 static void ft_push_queue(t_queue **lst, int node)
 {
 	if (!(*lst))
@@ -65,9 +33,9 @@ int ft_index_path_cap(t_lem_in *lst, int end_room, int strat, int index)
 	{
 		if (q->node == end_room)
 		{
-			if (q->flow == i) //index) //1)
+			if (q->flow == i)
 			{
-				q->flow =  -2;//(i == 0 ? 1 : 0); //-2
+				q->flow = -2;
 				return (1);
 			}
 		}
@@ -85,7 +53,7 @@ void ft_index_path(t_lem_in *lem, int end_room, int strat, int index)
 		if (q->node == end_room)
 		{
 			if (ft_index_path_cap(lem, strat, end_room, index))
-				q->flow = -2;//(index == 0 ? 1 : 0); //-2;
+				q->flow = -2;
 			else
 				q->flow = (index == 0 ? 1 : 0);
 		}
@@ -121,7 +89,6 @@ static void _init(t_bfs **bfs, int **vist, int nbroom, int strat)
 	(*bfs)->q = (*bfs)->last;
 }
 
-
 int ft_index_node(t_lem_in *lem, int end_room, int strat, int index, int *node)
 {
 	t_queue *q;
@@ -134,7 +101,7 @@ int ft_index_node(t_lem_in *lem, int end_room, int strat, int index, int *node)
 	{
 		if (q->node == end_room)
 		{
-			if (q->flow == i /*&& node[end_room] == 1 && node[strat] == 1*/) //index + 1)
+			if (q->flow == i)
 				return (0);
 			else
 				return (1);
@@ -143,71 +110,35 @@ int ft_index_node(t_lem_in *lem, int end_room, int strat, int index, int *node)
 	}
 	return (1);
 }
+static void ft_free_queue__(t_queue **lst)
+{
+	if ((*lst) && (*lst)->next)
+		ft_free_queue__(&(*lst)->next);
+	ft_memdel((void **)lst);
+}
 
-
-// if (vist[queue->node] == -1 && queue->flow == c &&
-// 			(node[tmp->node] == 0 || (node[tmp->node] == 1  && ((ft_index_node(lem, vist[tmp->node], tmp->node, c, node) == 1 && node[vist[tmp->node]] == 0 && node[queue->node] == 1  &&
-// 			 ft_index_node(lem, tmp->node, queue->node, c, node) == 0) ||
-// 			( node[vist[tmp->node]] == 1 && ft_index_node(lem, vist[tmp->node], tmp->node, c, node) == 0)))))
-
-// if (vist[queue->node] == -1 && queue->flow == c && y == 0 &&
-// 			(node[tmp->node] == 0 || (node[tmp->node] == 1  && ((ft_index_node(lem, vist[tmp->node], tmp->node, c, node) == 1 && node[vist[tmp->node]] == 0 && node[queue->node] == 1  &&
-// 			 ft_index_node(lem, tmp->node, queue->node, c, node) == 0) ||
-// 			( node[vist[tmp->node]] == 1 && ft_index_node(lem, vist[tmp->node], tmp->node, c, node) == 0)))))
-int *_bfs(t_lem_in *lem, int c, int *node, int y, int count)
+int *_bfs(t_lem_in *lem, int c, int *node, int y)
 {
 	t_bfs *lst;
 	t_queue *tmp;
 	t_queue *queue;
 	int *vist;
-	int t = 0;
 
-	(void)lem;
-	(void)node;
-	(void)count;
 	_init(&lst, &vist, lem->nbrooms, lem->start);
 	while (lst->q)
 	{
 		tmp = ft_front_queue(&lst->q);
 		queue = lem->adlist[tmp->node];
-		t = 0;
 		while (queue)
 		{
 			if (queue->node == lem->end && queue->flow == c)
 			{
 				vist[queue->node] = tmp->node;
-				ft_free_queue(&lst->q);
+				ft_free_queue__(&lst->q);
 				ft_memdel((void **)&lst);
 				return (vist);
 			}
-			// if (vist[queue->node] == -1 && queue->flow == c && y == 0 &&
-			// (node[tmp->node] == 0 || (node[tmp->node] == 1  && ((ft_index_node(lem, vist[tmp->node], tmp->node, c, node) == 1 && node[vist[tmp->node]] == 0 && node[queue->node] == 1  &&
-			//  ft_index_node(lem, tmp->node, queue->node, c, node) == 0) ||
-			// ( node[vist[tmp->node]] == 1 && ft_index_node(lem, vist[tmp->node], tmp->node, c, node) == 0)))))
-			
-			if ( vist[queue->node] == -1 && queue->flow == c && y == 0 &&
-				(node[tmp->node] == 0 || (node[tmp->node] == 1 && ((lem->adlist[vist[tmp->node]]->node_parent !=  tmp->node && node[vist[tmp->node]] == 0 && node[queue->node] == 1 &&
-				lem->adlist[tmp->node]->node_parent ==  queue->node && tmp->flow == c) || (node[vist[tmp->node]] == 1 && lem->adlist[vist[tmp->node]]->node_parent ==  tmp->node )))))
-			// if (vist[queue->node] == -1 && queue->flow == c &&
-			// (node[tmp->node] == 0 || (node[tmp->node] == 1  && ((ft_index_node(lem, vist[tmp->node], tmp->node, c, node) == 1 && node[vist[tmp->node]] == 0 && node[queue->node] == 1  &&
-			//  ft_index_node(lem, tmp->node, queue->node, c, node) == 0) ||
-			// ( node[vist[tmp->node]] == 1 && ft_index_node(lem, vist[tmp->node], tmp->node, c, node) == 0)))))
-
-			// if (vist[queue->node] == -1 && queue->flow == c && y == 0 &&
-			// 	(node[tmp->node] == 0 || (node[tmp->node] == 1 && ((ft_index_node(lem, vist[tmp->node], tmp->node, c, node) == 1 && node[vist[tmp->node]] == 0 && node[queue->node] == 1 &&
-			// 														ft_index_node(lem, tmp->node, queue->node, c, node) == 0) ||
-			// 													   (node[vist[tmp->node]] == 1 && ft_index_node(lem, vist[tmp->node], tmp->node, c, node) == 0)))))
-			// if (vist[queue->node] == -1 && queue->flow == c && y == 0 &&
-			// (node[tmp->node] == 0 || (node[tmp->node] == 1  && ((ft_index_node(lem, vist[tmp->node], tmp->node, c, node) == 1 && node[vist[tmp->node]] == 0 && node[queue->node] == 1  &&
-			//  ft_index_node(lem, tmp->node, queue->node, c, node) == 0) ||
-			// ( node[vist[tmp->node]] == 1 && ft_index_node(lem, vist[tmp->node], tmp->node, c, node) == 0)))))
-			{
-				vist[queue->node] = tmp->node;
-				ft_push_queue(&lst->last, queue->node);
-				if (!(lst->q))
-					lst->q = lst->last;
-			}
-			if (vist[queue->node] == -1 && queue->flow == c && y == 1 && node[tmp->node] == 0)
+			if (CHECK_4 || CHECK_)
 			{
 				vist[queue->node] = tmp->node;
 				ft_push_queue(&lst->last, queue->node);
@@ -218,6 +149,7 @@ int *_bfs(t_lem_in *lem, int c, int *node, int y, int count)
 		}
 		ft_memdel((void **)&tmp);
 	}
+	ft_free_queue__(&lst->q);
 	ft_memdel((void **)&lst);
 	return (0);
 }

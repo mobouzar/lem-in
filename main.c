@@ -19,33 +19,10 @@ t_lem_in *getset(t_lem_in *l)
 	return (g);
 }
 
-// void ft_get_path_(t_lem_in *lst, int *path, int i, int index, int *node)
-// {
-// 	int h = 0;
-
-// 	(void)h;
-// 	if (i == lst->start || path == NULL)
-// 		return;
-
-// 	ft_get_path_(lst, path, path[i], index, node);
-// 	if (path[i] != lst->start && path[i] != lst->end)
-// 	{
-// 		lst->adlist[i]->node_parent = path[i];
-// 		lst->adlist[path[i]]->node_visit = index;
-// 		node[path[i]] = 1;
-// 		//ft_printf("|%s| ==> \n", lst->rooms[path[i]]);
-// 	}
-// 	//dprintf((h = open("jjj", O_RDWR | O_APPEND)),"%s-", lst->rooms[path[i]]);close(h);
-
-// 	ft_index_path(lst, i, path[i], index);
-// }
-
 void ft_get_path_(t_lem_in *lst, int *path, int index, int *node)
 {
 	int i;
 	int min;
-	//int h;
-
 
 	if (lst->end == lst->start || path == NULL)
 		return;
@@ -57,7 +34,6 @@ void ft_get_path_(t_lem_in *lst, int *path, int index, int *node)
 			node[path[i]] = 1;
 		lst->adlist[i]->node_parent = path[i];
 		ft_index_path(lst, i, path[i], index);
-		//dprintf((h = open("jjj", O_RDWR | O_APPEND)),"%s-", lst->rooms[path[i]]);close(h);
 		i = path[i];
 	}
 }
@@ -65,7 +41,7 @@ void ft_get_path_(t_lem_in *lst, int *path, int index, int *node)
 void ft_get_path_22(t_lem_in *lst, int *path, int *node)
 {
 	int i;
-	
+
 	int min;
 	if (lst->end == lst->start || path == NULL)
 		return;
@@ -79,7 +55,6 @@ void ft_get_path_22(t_lem_in *lst, int *path, int *node)
 	}
 }
 
-// void			intersection_()
 int main(void)
 {
 	int *path;
@@ -105,31 +80,45 @@ int main(void)
 	(void)h;
 	int j = 0;
 	getset(&l);
-	//while (1)
+	ft_memset((void *)node_visit, 0, sizeof(int) * l.nbrooms);
+	while ((path = _bfs(&l, 0, node_visit, 0)))
 	{
-		ft_memset((void *)node_visit, 0, sizeof(int) * l.nbrooms);
-		while ((path = _bfs(&l, i % 2, node_visit, 0, i)))
+		ft_get_path_(&l, path, 0, node_visit);
+		ft_memdel((void **)&path);
+		ft_memset((void *)node_visit22, 0, sizeof(int) * l.nbrooms);
+		while ((path = _bfs(&l, 1, node_visit22, 1)))
 		{
-			ft_get_path_(&l, path, i % 2, node_visit);
-			//dprintf((h = open("jjj", O_RDWR | O_APPEND)),"%s", l.rooms[l.end]);close(h);
-			path = NULL;
-			ft_memset((void *)node_visit22, 0, sizeof(int) * l.nbrooms);
-			while ((path = _bfs(&l, (i + 1) % 2, node_visit22, 1, j)))
-			{
-				ft_get_path_22(&l, path, node_visit22);
-				if (j == 0)
-					ft_add_group(&(l.g), path, l.end, 0, l.start);
-				else
-					ft_add_group(&(l.g), path, l.end, 1, l.start);
-				path = NULL;
-			}
-			j++;
-			 ft_get_best_grp(&(l.g), l.nbants);
-			if (getset(0)->quit == 0)
+			ft_get_path_22(&l, path, node_visit22);
+			if (j == 0)
+				ft_add_group(&(l.g), path, l.end, 0, l.start);
+			else
+				ft_add_group(&(l.g), path, l.end, 1, l.start);
+			if (path && path[l.end] == l.start)
 				break;
+
+			ft_memdel((void **)&path);
 		}
-		i++;
+		if (path && path[l.end] == l.start)
+		{
+			ft_memdel((void **)&path);
+			ft_memdel((void **)&node_visit);
+			ft_memdel((void **)&node_visit22);
+			break;
+		}
+		j++;
+		ft_get_best_grp(&(l.g), l.nbants);
+		if (getset(0)->quit == 0)
+			break;
 	}
+	if (!(l.g[0]))
+	{
+		ft_memdel((void **)&node_visit);
+		ft_memdel((void **)&node_visit22);
+		ft_putendl("not path");
+		return 0;
+	}
+	ft_memdel((void **)&node_visit);
+	ft_memdel((void **)&node_visit22);
 	print_data(head);
 	ft_print_instructoin();
 }

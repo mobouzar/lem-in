@@ -6,7 +6,7 @@
 /*   By: yelazrak <yelazrak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 13:49:39 by mobouzar          #+#    #+#             */
-/*   Updated: 2020/01/23 15:44:50 by yelazrak         ###   ########.fr       */
+/*   Updated: 2020/02/05 17:43:33 by yelazrak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,18 @@
 #define END 6
 #define COMMAND 7
 
+#define CHECK_   (vist[queue->node] == -1 && queue->flow == c && y == 1 && node[tmp->node] == 0)
+#define CHECK_1    (node[vist[tmp->node]] == 1 && lem->adlist[vist[tmp->node]]->node_parent == tmp->node)
+#define CHECK_2   ((lem->adlist[vist[tmp->node]]->node_parent != tmp->node && node[vist[tmp->node]] == 0 && node[queue->node] == 1 && lem->adlist[tmp->node]->node_parent == queue->node && tmp->flow == c)
+
+#define CHECK_3  (vist[queue->node] == -1 && queue->flow == c && y == 0 )
+#define CHECK_4  (CHECK_3 && (node[tmp->node] == 0 || (node[tmp->node] == 1 &&  CHECK_2 || CHECK_1))))
+
 typedef struct s_print
 {
 	char *name;
-	int  scor;
-	int  bant;
+	int scor;
+	int bant;
 	int len_path;
 	struct s_print *next;
 
@@ -39,7 +46,7 @@ typedef struct s_group
 {
 	char *grp;
 	int len_g;
-	int	 scor;
+	int scor;
 	struct s_group *next;
 } t_group;
 
@@ -85,7 +92,7 @@ typedef struct s_lem_in
 	t_queue **adlist;
 	t_group **g;
 	char **rooms;
-	int		*node;
+	int *node;
 	int nbants;
 	int nbrooms;
 	int start;
@@ -108,7 +115,7 @@ int creat_rooms_array(t_lem_in *l, t_room *room, char **start, char **end);
 int contains(t_lem_in *l, char *element, char *start, char *end);
 /***********************************************************************/
 /////
-int *_bfs(t_lem_in *lem, int c, int *node,int y,int count);
+int *_bfs(t_lem_in *lem, int c, int *node, int y);
 void ft_index_path(t_lem_in *lem, int end_room, int strat, int index);
 void ft_free_tab(char ***tab);
 void ft_free_queue(t_queue **lst);
@@ -118,6 +125,6 @@ void ft_get_best_grp(t_group ***lst, int nbants);
 t_lem_in *getset(t_lem_in *l);
 void ft_print_instructoin();
 
-void		ft_print_adj(t_lem_in *adj);
-void		ft_ft();
+void ft_print_adj(t_lem_in *adj);
+void ft_ft();
 #endif

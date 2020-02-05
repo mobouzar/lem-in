@@ -1,43 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_fun_free.c                                      :+:      :+:    :+:   */
+/*   ft_ceil.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yelazrak <yelazrak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/24 22:26:58 by yelazrak          #+#    #+#             */
-/*   Updated: 2020/02/05 19:44:12 by yelazrak         ###   ########.fr       */
+/*   Created: 2019/12/04 13:04:51 by mobouzar          #+#    #+#             */
+/*   Updated: 2019/12/05 19:25:02 by yelazrak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/lem_in.h"
+#include "libft.h"
+#include <stdio.h>
 
-void		ft_free_tab(char ***tab)
+int		ft_ceil(int nbr1, int nbr2)
 {
-	int		i;
-	char	**str;
+	int result;
 
-	i = 0;
-	str = *tab;
-	while (str[i])
-	{
-		ft_strdel(&str[i]);
-		i++;
-	}
-	free(str);
+	result = 0;
+	if (nbr1 % nbr2 == 0)
+		result = (int)(nbr1 / nbr2);
+	else
+		return (((int)(nbr1 / nbr2)) + 1);
+	return (result);
 }
-
-// void		ft_free_queue(t_queue **lst)
-// {
-// 	t_queue *tmp;
-
-// 	if ((*lst))
-// 	{
-// 		while ((*lst))
-// 		{
-// 			tmp = (*lst);
-// 			(*lst) = (*lst)->next;
-// 			ft_memdel((void **)&tmp);
-// 		}
-// 	}
-// }

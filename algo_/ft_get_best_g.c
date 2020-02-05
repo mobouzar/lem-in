@@ -29,19 +29,25 @@ int ft_count_group(t_group *lst, int *i)
 	return (len);
 }
 
+// static void ft_free_group(t_group **lst)
+// {
+// 	t_group *tmp;
+// 	t_group *tmp_2;
+
+// 	tmp = *lst;
+// 	while (tmp)
+// 	{
+// 		tmp_2 = tmp;
+// 		tmp = tmp->next;
+// 		ft_memdel((void **)&tmp_2);
+// 	}
+// 	*lst = NULL;
+// }
 static void ft_free_group(t_group **lst)
 {
-	t_group *tmp;
-	t_group *tmp_2;
-
-	tmp = *lst;
-	while (tmp)
-	{
-		tmp_2 = tmp;
-		tmp = tmp->next;
-		ft_memdel((void **)&tmp_2);
-	}
-	*lst = NULL;
+	if ((*lst) && (*lst)->next)
+		ft_free_group(&(*lst)->next);
+	ft_memdel((void **)lst);
 }
 
 int ft_get_best_scor(t_group **lst)
@@ -58,8 +64,8 @@ int ft_get_best_scor(t_group **lst)
 	k = 0;
 	ants = getset(0)->nbants;
 	tmp = *lst;
-	// if ((*lst)->scor != -1 && (*lst)->len_g != -1)
-	// 	return ((*lst)->scor);
+	if ((*lst)->scor != -1 && (*lst)->len_g != -1)
+		return ((*lst)->scor);
 	while (tmp)
 	{
 		k += ft_path_len(tmp->grp);
@@ -81,25 +87,18 @@ void ft_get_best_grp(t_group ***lst, int nbants)
 {
 	int g1 = -1;
 	int g2 = -1;
-	int  h = 0;
-	(void)nbants; //ft_putendl("hghgfhgdjhfghjd");
-
-	// if ((*lst)[0])
-	// 	g1 = ft_get_best_scor(&(*lst)[0]);
-	// if ((*lst)[1])
-	// 	g2 = ft_get_best_scor(&(*lst)[1]);
+	(void)nbants;
 
 	if (!(*lst)[1] || !(*lst[0]))
 		return;
 	g1 = ft_get_best_scor(&(*lst)[0]);
 	g2 = ft_get_best_scor(&(*lst)[1]);
-	dprintf((h = open("/dev/ttys002", O_RDWR)), "g1=%d 		g2=%d  \n",g1,g2);close(h);
-	if (g1 < g2)//=
+	if (g1 < g2)
 	{
 		getset(0)->quit = 0;
-		return ;
+		return;
 	}
-	if (g1 > g2) //++=
+	if (g1 > g2)
 	{
 		ft_free_group(&((*lst)[0]));
 		(*lst)[0] = (*lst)[1];
@@ -110,5 +109,4 @@ void ft_get_best_grp(t_group ***lst, int nbants)
 		ft_free_group(&((*lst)[1]));
 		(*lst)[1] = NULL;
 	}
-	//printf("kkkk = %d		g1 = %d			g2 = %d\n\n",getset(0)->quit, g1, g2);
 }
