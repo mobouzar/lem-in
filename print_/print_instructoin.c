@@ -6,7 +6,7 @@
 /*   By: yelazrak <yelazrak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 18:50:05 by yelazrak          #+#    #+#             */
-/*   Updated: 2020/02/07 09:39:45 by yelazrak         ###   ########.fr       */
+/*   Updated: 2020/02/07 12:17:32 by yelazrak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,8 @@ void			ft_print_instructoin(void)
 	lem = getset(0);
 	tmp = lem->g[0];
 	i = ft_get_best_path_(&tmp, lem->nbants);
-	init = ft_chang_path(lem, i);
+	if (!(init = ft_chang_path(lem, i)))
+		return ;
 	while (lem->nbr_ant_end < lem->nbants)
 		ft_print_(lem, &init, i);
 	ft_free_init(&init, i);

@@ -6,7 +6,7 @@
 #    By: yelazrak <yelazrak@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/26 18:43:13 by yelazrak          #+#    #+#              #
-#    Updated: 2020/02/07 10:46:29 by yelazrak         ###   ########.fr        #
+#    Updated: 2020/02/07 11:21:16 by yelazrak         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,8 @@ c_srcs = algo_/ft_bfs.c \
 		read_file/ft_adj_list.c \
 		read_file/sort_rooms.c \
 		print_/print_instructoin.c \
-		print_/ft_get_nbr_path.c 
+		print_/ft_get_nbr_path.c \
+		ft_mangement.c 
 
 objs = $(c_srcs:.c=.o)
 INCLUDES = ./include

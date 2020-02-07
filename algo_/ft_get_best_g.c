@@ -6,7 +6,7 @@
 /*   By: yelazrak <yelazrak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 18:49:23 by yelazrak          #+#    #+#             */
-/*   Updated: 2020/02/07 10:50:21 by yelazrak         ###   ########.fr       */
+/*   Updated: 2020/02/07 12:01:18 by yelazrak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,8 @@ void				ft_get_best_grp(t_group ***lst, int nbants)
 	}
 	g1 = ft_get_best_scor(&(*lst)[0], nbants);
 	g2 = ft_get_best_scor(&(*lst)[1], nbants);
+	if (g1 < g2)
+		getset(0)->quit = 1;
 	if (g1 > g2)
 	{
 		ft_free_group(&((*lst)[0]));

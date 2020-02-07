@@ -6,7 +6,7 @@
 /*   By: yelazrak <yelazrak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 09:45:53 by yelazrak          #+#    #+#             */
-/*   Updated: 2020/02/07 09:46:13 by yelazrak         ###   ########.fr       */
+/*   Updated: 2020/02/07 12:13:26 by yelazrak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ static t_print	*ft_get_node_name(char *str, char **tab_name)
 
 	init = NULL;
 	i = ft_path_len(str) + 1;
-	tmp = ft_strsplit(str, '-');
+	if (!(tmp = ft_strsplit(str, '-')))
+		return (NULL);
 	lst = ft_get_(tmp[0], tab_name);
 	lst->len_path = ft_path_len(str);
 	init = lst;
@@ -79,7 +80,8 @@ static t_print	**ft_get_ants_start(t_print ***init, t_lem_in *l, int lenght)
 	{
 		j = g->len_g;
 		k += j;
-		(*init)[i] = ft_get_node_name(g->grp, l->rooms);
+		if (!((*init)[i] = ft_get_node_name(g->grp, l->rooms)))
+			return (NULL);
 		(*init)[i]->len_path = g->len_g;
 		if (l->len - j >= 0)
 			(*init)[i]->scor = l->len - j;
@@ -100,7 +102,8 @@ t_print			**ft_chang_path(t_lem_in *l, int lenght)
 	if (!(init = (t_print **)malloc(sizeof(t_print *) * lenght)))
 		return (NULL);
 	ft_memset((void *)init, '\0', sizeof(t_print *) * lenght);
-	init = ft_get_ants_start(&init, l, lenght);
+	if (!(init = ft_get_ants_start(&init, l, lenght)))
+		return (NULL);
 	while (l->nbr > 0)
 	{
 		i = -1;

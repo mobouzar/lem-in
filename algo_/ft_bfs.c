@@ -6,7 +6,7 @@
 /*   By: yelazrak <yelazrak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 10:47:42 by yelazrak          #+#    #+#             */
-/*   Updated: 2020/02/07 10:52:49 by yelazrak         ###   ########.fr       */
+/*   Updated: 2020/02/07 12:30:57 by yelazrak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,12 @@ int **vist, int nbroom, int strat)
 	if (!((*vist) = (int *)malloc(sizeof(int) * (nbroom))))
 		return ;
 	ft_memset((*vist), -1, sizeof(int) * (nbroom));
-	ft_push_queue(&(*bfs)->last, strat);
+	ft_push_queue(&(*bfs)->q, strat);
 	(*vist)[strat] = 0;
-	(*bfs)->q = (*bfs)->last;
+	 (*bfs)->last = (*bfs)->q;
 }
 
-static int				ft_che_ck_conditoin(t_bfs *lst,
+static int				ft_conditoin(t_bfs *lst,
 t_queue *queue, t_queue *tmp, int *vist, int *node)
 {
 	t_lem_in			*lem;
@@ -80,8 +80,7 @@ t_queue *tmp, int *vist, int *node)
 			vist[queue->node] = tmp->node;
 			return (1);
 		}
-		if (ft_che_ck_conditoin(lst, queue,
-								tmp, vist, node))
+		if (ft_conditoin(lst, queue, tmp, vist, node))
 		{
 			vist[queue->node] = tmp->node;
 			ft_push_queue(&lst->last, queue->node);
@@ -107,6 +106,7 @@ int						*ft_bfs(t_lem_in *lem, int c, int *node, int y)
 		tmp = ft_front_queue(&lst->q);
 		if (ft_visit_child(lst, tmp, vist, node))
 		{
+			ft_memdel((void **)&tmp);
 			ft_free_queue__(&lst->q);
 			ft_memdel((void **)&lst);
 			return (vist);
