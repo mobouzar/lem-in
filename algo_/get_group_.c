@@ -6,15 +6,15 @@
 /*   By: yelazrak <yelazrak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/24 22:28:26 by yelazrak          #+#    #+#             */
-/*   Updated: 2020/02/05 20:06:48 by yelazrak         ###   ########.fr       */
+/*   Updated: 2020/02/07 09:50:39 by yelazrak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/lem_in.h"
 
-static t_group *ft_get_group(char *group)
+static t_group		*ft_get_group(char *group)
 {
-	t_group *g;
+	t_group			*g;
 
 	if (!(g = (t_group *)malloc(sizeof(t_group))))
 		return (NULL);
@@ -26,10 +26,10 @@ static t_group *ft_get_group(char *group)
 	return (g);
 }
 
-static char *ft_convert_int_char(int *visit, int max, int min)
+static char			*ft_convert_int_char(int *visit, int max, int min)
 {
-	int i;
-	char *str;
+	int				i;
+	char			*str;
 
 	str = ft_strdup(ft_itoa(max));
 	i = max;
@@ -42,11 +42,11 @@ static char *ft_convert_int_char(int *visit, int max, int min)
 	return (str);
 }
 
-static int ft_check_path(char *str, char *g)
+static int			ft_check_path(char *str, char *g)
 {
-	char **room;
-	char *tmp;
-	int i;
+	char			**room;
+	char			*tmp;
+	int				i;
 
 	i = 0;
 	tmp = NULL;
@@ -68,10 +68,11 @@ static int ft_check_path(char *str, char *g)
 	return (0);
 }
 
-static int ft_add_path(t_group **lst, char *group, int i)
+static int			ft_add_path(t_group **lst,
+char *group, int i)
 {
-	t_group *tmp;
-	int a;
+	t_group			*tmp;
+	int				a;
 
 	tmp = lst[i];
 	a = 0;
@@ -94,18 +95,21 @@ static int ft_add_path(t_group **lst, char *group, int i)
 	return (0);
 }
 
-void ft_add_group(t_group ***lst, int *visit, int end, int i, int strat)
+void				ft_add_group(t_group ***lst,
+int *visit, int i)
 {
-	t_group **tmp;
-	char *group;
+	t_lem_in		*l;
+	t_group			**tmp;
+	char			*group;
 
 	tmp = *lst;
-	group = ft_convert_int_char(visit, end, strat);
+	l = getset(0);
+	group = ft_convert_int_char(visit, l->end, l->start);
 	if (!tmp[i])
 	{
 		tmp[i] = ft_get_group(group);
 		ft_strdel(&group);
-		return;
+		return ;
 	}
 	ft_add_path(*lst, group, i);
 	ft_strdel(&group);
