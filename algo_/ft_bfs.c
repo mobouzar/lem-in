@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_bfs.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yelazrak <yelazrak@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 10:47:42 by yelazrak          #+#    #+#             */
-/*   Updated: 2020/02/07 12:30:57 by yelazrak         ###   ########.fr       */
+/*   Updated: 2020/02/07 17:17:56 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,5 +115,6 @@ int						*ft_bfs(t_lem_in *lem, int c, int *node, int y)
 	}
 	ft_free_queue__(&lst->q);
 	ft_memdel((void **)&lst);
+	ft_memdel((void **)&vist);
 	return (0);
 }

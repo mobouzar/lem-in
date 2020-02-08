@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_get_nbr_path.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yelazrak <yelazrak@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 09:45:53 by yelazrak          #+#    #+#             */
-/*   Updated: 2020/02/07 12:13:26 by yelazrak         ###   ########.fr       */
+/*   Updated: 2020/02/08 10:38:33 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static t_print	*ft_get_(char *tmp, char **tab_name)
 
 	if (!(lst = (t_print *)malloc(sizeof(t_print))))
 		return (NULL);
-	ft_memset((void *)lst, '\0', sizeof(t_print));
+	ft_memset((void *)lst, 0, sizeof(t_print));
 	lst->name = ft_strdup(tab_name[ft_atoi(tmp)]);
 	lst->bant = 0;
 	lst->next = NULL;

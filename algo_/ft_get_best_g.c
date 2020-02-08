@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_get_best_g.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yelazrak <yelazrak@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 18:49:23 by yelazrak          #+#    #+#             */
-/*   Updated: 2020/02/07 12:01:18 by yelazrak         ###   ########.fr       */
+/*   Updated: 2020/02/07 18:32:47 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ static void			ft_free_group(t_group **lst)
 {
 	if ((*lst) && (*lst)->next)
 		ft_free_group(&(*lst)->next);
+	ft_memdel((void **)&(*lst)->grp);
 	ft_memdel((void **)lst);
 }
 

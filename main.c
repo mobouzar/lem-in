@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yelazrak <yelazrak@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 11:15:11 by yelazrak          #+#    #+#             */
-/*   Updated: 2020/02/07 12:34:23 by yelazrak         ###   ########.fr       */
+/*   Updated: 2020/02/08 11:04:30 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,17 @@ int					main(void)
 	head = map;
 	ft_memset((void *)l, '\0', sizeof(t_lem_in));
 	ft_memset((void *)map, '\0', sizeof(t_map));
-	read_data(map, l);
-	getset(l);
-	ft_mangement_instructoin(l, head);
-	ft_struct_lem_in(&l);
+	l->start = -1;
+	l->end = -1;
+	if (!read_data(map, l))
+	{
+		ft_memdel((void*)&l);
+		ft_free_map(&head);
+		ft_putendl("Error");
+		return (1);
+	}
+	// getset(l);
+	// ft_mangement_instructoin(l, head);
+	// ft_struct_lem_in(&l, &head);
 	return (0);
 }

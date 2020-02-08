@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yelazrak <yelazrak@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 13:49:39 by mobouzar          #+#    #+#             */
-/*   Updated: 2020/02/07 12:02:27 by yelazrak         ###   ########.fr       */
+/*   Updated: 2020/02/07 21:43:28 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,7 @@
 # include <stdio.h>
 # include <fcntl.h>
 
-# define NBANTS 1
-# define ROOM 2
 # define LINK 3
-# define COMMENT 4
-# define START 5
-# define END 6
-# define COMMAND 7
 
 typedef struct		s_print
 {
@@ -64,7 +58,6 @@ typedef struct		s_bfs
 typedef struct		s_map
 {
 	char			*data;
-	int				type;
 	struct s_map	*next;
 }					t_map;
 
@@ -86,6 +79,7 @@ typedef struct		s_lem_in
 	t_queue			**adlist;
 	t_group			**g;
 	char			**rooms;
+	int				type;
 	int				nbants;
 	int				nbrooms;
 	int				start;
@@ -95,7 +89,6 @@ typedef struct		s_lem_in
 	int				quit;
 	int				len;
 	int				nbr;
-//	int				index;
 }					t_lem_in;
 
 int					get_nbants(t_lem_in *l, char *line);
@@ -103,13 +96,10 @@ int					read_data(t_map *map, t_lem_in *l);
 int					check_room(t_room **r, char *line);
 int					get_rooms(t_lem_in *l, t_room **r,
 t_map **m, char *line);
-int					get_links(t_lem_in **l, char *line,
-char *start, char *end);
+int					get_links(t_lem_in **l, char *line);
 int					ft_creat_adj(t_lem_in **lst, int nbrooms);
-int					creat_rooms_array(t_lem_in *l,
-t_room *room, char **start, char **end);
-int					contains(t_lem_in *l, char *element,
-char *start, char *end);
+int					creat_rooms_array(t_lem_in *l, t_room *room);
+int					ft_contains(t_lem_in *l, char *element);
 int					*ft_bfs(t_lem_in *lem, int c, int *node, int y);
 int					ft_path_len(char *path);
 t_print				**ft_chang_path(t_lem_in *l, int lenght);
@@ -118,6 +108,7 @@ void				ft_mangement_instructoin(t_lem_in *l, t_map *head);
 void				ft_free_tab(char ***tab);
 void				ft_free_queue(t_queue **lst);
 void				ft_add_group(t_group ***lst, int *group, int i);
+int					ft_add_node(t_lem_in **adj_list, int room_1, int room_2);
 void				ft_get_best_grp(t_group ***lst, int nbants);
 void				ft_print_instructoin();
 void				ft_print_adj(t_lem_in *adj);
@@ -126,6 +117,8 @@ int index, int *node, int **v);
 void				ft_free_init(t_print ***init, int j);
 void				ft_free_queue__(t_queue **lst);
 void				ft_push_queue(t_queue **lst, int node);
-void				ft_struct_lem_in(t_lem_in **l);
+void				ft_struct_lem_in(t_lem_in **l, t_map **map);
+void				ft_free_room(t_room **g);
+void				ft_free_map(t_map **map);
 
 #endif

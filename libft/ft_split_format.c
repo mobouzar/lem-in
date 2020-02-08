@@ -6,7 +6,7 @@
 /*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 16:28:52 by mobouzar          #+#    #+#             */
-/*   Updated: 2019/11/27 18:20:48 by mobouzar         ###   ########.fr       */
+/*   Updated: 2020/02/08 11:00:05 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,17 +68,18 @@ static char	**ft_fill_array(char **array, char const *str, char del)
 	int		i;
 	int		j;
 	int		k;
-
+int	l;
 	i = 0;
 	j = 0;
 	k = 0;
+	l = ft_strlen(str);
 	while (str[i] != '\0')
 	{
 		if (str[i] != del)
 		{
 			array[k][j] = str[i];
 			j++;
-			if (str[i + 1] == '\0' || str[i + 1] == del)
+			if (i < l && (str[i + 1] == '\0' || str[i + 1] == del))
 			{
 				array[k][j] = '\0';
 				k++;

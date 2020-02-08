@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_group_.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yelazrak <yelazrak@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/24 22:28:26 by yelazrak          #+#    #+#             */
-/*   Updated: 2020/02/07 09:50:39 by yelazrak         ###   ########.fr       */
+/*   Updated: 2020/02/07 18:40:32 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ static char			*ft_convert_int_char(int *visit, int max, int min)
 	int				i;
 	char			*str;
 
-	str = ft_strdup(ft_itoa(max));
 	i = max;
+	str = ft_itoa(max);
 	while (i != min)
 	{
 		str = ft_strjoin_free(ft_strdup("-"), str);

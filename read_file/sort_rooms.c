@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   sort_rooms.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mydevice <mydevice@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 17:08:44 by mobouzar          #+#    #+#             */
-/*   Updated: 2019/12/07 18:58:25 by mydevice         ###   ########.fr       */
+/*   Updated: 2020/02/08 11:21:45 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/lem_in.h"
 
-int		contains(t_lem_in *l, char *element, char *start, char *end)
+int		ft_contains(t_lem_in *l, char *element)
 {
 	int	len;
 	int	i;
@@ -23,13 +23,9 @@ int		contains(t_lem_in *l, char *element, char *start, char *end)
 	while (i <= len)
 	{
 		m = (i + len) / 2;
-		if (!ft_strcmp(l->rooms[m], start))
-			l->start = m;
-		else if (!ft_strcmp(l->rooms[m], end))
-			l->end = m;
-		if (!ft_strcmp(l->rooms[m], element))
+		if (!ft_strcmp("l->rooms[m]", element))
 			return (m);
-		else if (ft_strcmp(l->rooms[m], element) > 0)
+		else if (ft_strcmp("l->rooms[m]", element) > 0)
 			len = m - 1;
 		else
 			i = m + 1;
@@ -39,7 +35,7 @@ int		contains(t_lem_in *l, char *element, char *start, char *end)
 	return (m);
 }
 
-void	sort_rooms_array(t_lem_in *l)
+int		sort_rooms_array(t_lem_in *l)
 {
 	char	*tmp;
 	int		len;
@@ -55,35 +51,42 @@ void	sort_rooms_array(t_lem_in *l)
 			if (ft_strcmp(l->rooms[j], l->rooms[i]) > 0)
 			{
 				len = ft_strlen(l->rooms[j]);
-				if (!(tmp = (char *)malloc(sizeof(char) * len)))
-					return ;
+				if (!(tmp = ft_strnew(len)))
+					return (0);
 				ft_strcpy(tmp, l->rooms[j]);
 				ft_strcpy(l->rooms[j], l->rooms[i]);
 				ft_strcpy(l->rooms[i], tmp);
 				ft_strdel(&tmp);
 			}
 	}
+	return (1);
 }
 
-int		creat_rooms_array(t_lem_in *l, t_room *room, char **start, char **end)
+int		creat_rooms_array(t_lem_in *l, t_room *room)
 {
+	t_room	*head;
+	char	*start;
+	char	*end;
 	int		i;
 
 	i = -1;
-	if (!(l->rooms = (char **)malloc(sizeof(char *) * l->nbrooms)))
+	head = room;
+	if (!(l->rooms = (char **)malloc(sizeof(char *) * (l->nbrooms + 1))))
 		return (0);
-	while (room->next && ++i < l->nbrooms)
+	ft_memset((void*)l->rooms, '\0', sizeof(l->rooms));
+	while (++i < l->nbrooms && room && room->next)
 	{
 		if (i == l->start)
-			*start = ft_strdup(room->name);
+			start = ft_strdup(room->name);
 		else if (i == l->end)
-			*end = ft_strdup(room->name);
-		l->rooms[i] = room->name;
+			end = ft_strdup(room->name);
+		l->rooms[i] = ft_strdup(room->name);
 		room = room->next;
 	}
 	sort_rooms_array(l);
-	// i = -1;
-	// while (++i < l->nbrooms)
-	// 	ft_printf("i = |%d|		room = |%s|\n",i, l->rooms[i]);
+	l->start = ft_contains(l, start);
+	l->end = ft_contains(l, end);
+	ft_strdel(&start);
+	ft_strdel(&end);
 	return (1);
 }

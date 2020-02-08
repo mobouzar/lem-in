@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_mangement.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yelazrak <yelazrak@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 11:20:35 by yelazrak          #+#    #+#             */
-/*   Updated: 2020/02/07 12:40:20 by yelazrak         ###   ########.fr       */
+/*   Updated: 2020/02/07 17:16:52 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ static int					ft_get_paths(t_lem_in *l, int *path)
 		if (getset(0)->quit == 1)
 			break ;
 	}
-	ft_free_buffer(&node_visit, &node_visit22, NULL);
+	ft_free_buffer(&node_visit, &node_visit22, &path);
 	return (0);
 }
 

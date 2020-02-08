@@ -2,6 +2,7 @@
 ##start
 start 0 1
 middle 1 2
+middle 0 0
 ##end
 end 3 0
 start-middle

@@ -6,7 +6,7 @@
 /*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 21:46:16 by mobouzar          #+#    #+#             */
-/*   Updated: 2019/10/18 20:48:17 by mobouzar         ###   ########.fr       */
+/*   Updated: 2020/02/08 00:16:25 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 char	*safe_memory(char *str, char *temp)
 {
-	free(str);
+	ft_strdel(&str);
 	str = ft_strdup(temp);
-	free(temp);
+	ft_strdel(&temp);
 	return (str);
 }
 
@@ -37,7 +37,6 @@ int		get_next_line(const int fd, char **line)
 	g.p = 0;
 	if (fd < 0 || !line || read(fd, g.buff, 0) < 0)
 		return (-1);
-
 	(!lineof[fd]) ? (lineof[fd] = ft_strnew(0)) : lineof[fd];
 	while ((g.c = read(fd, g.buff, BUFF_SIZE)) == 1)
 	{
