@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yelazrak <yelazrak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 13:49:39 by mobouzar          #+#    #+#             */
-/*   Updated: 2020/02/09 05:25:48 by mobouzar         ###   ########.fr       */
+/*   Updated: 2020/02/09 11:49:20 by yelazrak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ typedef struct		s_bfs
 {
 	t_queue			*q;
 	t_queue			*last;
+	int				*ptr_node;
 	int				index_flow;
 	int				flow;
 }					t_bfs;
@@ -122,7 +123,5 @@ void				ft_push_queue(t_queue **lst, int node);
 void				ft_struct_lem_in(t_lem_in **l, t_map **map);
 void				ft_free_room(t_room **g);
 void				ft_free_map(t_map **map);
-
-// int					parse_data(t_lem_in *l, t_map *map);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_bfs.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yelazrak <yelazrak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 10:47:42 by yelazrak          #+#    #+#             */
-/*   Updated: 2020/02/07 17:17:56 by mobouzar         ###   ########.fr       */
+/*   Updated: 2020/02/09 11:47:06 by yelazrak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,17 @@ int **vist, int nbroom, int strat)
 	ft_memset((*vist), -1, sizeof(int) * (nbroom));
 	ft_push_queue(&(*bfs)->q, strat);
 	(*vist)[strat] = 0;
-	 (*bfs)->last = (*bfs)->q;
+	(*bfs)->last = (*bfs)->q;
 }
 
 static int				ft_conditoin(t_bfs *lst,
-t_queue *queue, t_queue *tmp, int *vist, int *node)
+t_queue *queue, t_queue *tmp, int *vist)
 {
 	t_lem_in			*lem;
+	int					*node;
 
 	lem = getset(0);
+	node = lst->ptr_node;
 	if (vist[queue->node] == -1 &&
 	queue->flow == lst->flow &&
 		lst->index_flow == 1 && node[queue->node] == 0)
@@ -72,6 +74,7 @@ t_queue *tmp, int *vist, int *node)
 	t_lem_in			*lem;
 
 	lem = getset(0);
+	lst->ptr_node = node;
 	queue = lem->adlist[tmp->node];
 	while (queue)
 	{
@@ -80,7 +83,7 @@ t_queue *tmp, int *vist, int *node)
 			vist[queue->node] = tmp->node;
 			return (1);
 		}
-		if (ft_conditoin(lst, queue, tmp, vist, node))
+		if (ft_conditoin(lst, queue, tmp, vist))
 		{
 			vist[queue->node] = tmp->node;
 			ft_push_queue(&lst->last, queue->node);

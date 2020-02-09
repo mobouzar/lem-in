@@ -3,64 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_fun_free.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yelazrak <yelazrak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/24 22:26:58 by yelazrak          #+#    #+#             */
-/*   Updated: 2020/02/09 06:16:45 by mobouzar         ###   ########.fr       */
+/*   Updated: 2020/02/09 12:23:52 by yelazrak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/lem_in.h"
-
-void			ft_free_tab(char ***tab)
-{
-	int			i;
-	char		**str;
-
-	i = 0;
-	if (!(*tab))
-		return ;
-	str = *tab;
-	while (str[i])
-	{
-		ft_strdel(&str[i]);
-		i++;
-	}
-	ft_memdel((void **)tab);
-}
-
-static void		ft_free_init_(t_print **init)
-{
-	if ((*init) && (*init)->next)
-		ft_free_init_(&(*init)->next);
-	ft_strdel(&(*init)->name);
-	ft_memdel((void **)init);
-}
-
-void			ft_free_init(t_print ***init, int j)
-{
-	t_lem_in	*p;
-	int			i;
-
-	if ((*init))
-	{
-		p = getset(0);
-		i = 0;
-		while (i < j && (*init)[i])
-		{
-			ft_free_init_(&(*init)[i]);
-			i++;
-		}
-		ft_memdel((void **)init);
-	}
-}
-
-void			ft_free_queue__(t_queue **lst)
-{
-	if ((*lst) && (*lst)->next)
-		ft_free_queue__(&(*lst)->next);
-	ft_memdel((void **)lst);
-}
 
 static void		ft_free_group(t_group **g)
 {
@@ -69,6 +19,7 @@ static void		ft_free_group(t_group **g)
 	ft_memdel((void **)&(*g)->grp);
 	ft_memdel((void **)g);
 }
+
 void			ft_free_map(t_map **map)
 {
 	if ((*map) && (*map)->next)
