@@ -6,11 +6,23 @@
 /*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 11:15:11 by yelazrak          #+#    #+#             */
-/*   Updated: 2020/02/08 11:04:30 by mobouzar         ###   ########.fr       */
+/*   Updated: 2020/02/09 06:13:38 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include/lem_in.h"
+
+// static void				print_data1(t_map *data)
+// {
+// 	// int i = 0;
+// 	while (data && data->next)
+// 	{
+// 		// ft_printf("%d\n", i++);
+// 		ft_printf("%s\n", data->data);
+// 		data = data->next;
+// 	}
+// 	ft_printf("\n");
+// }
 
 int					main(void)
 {
@@ -34,8 +46,8 @@ int					main(void)
 		ft_putendl("Error");
 		return (1);
 	}
-	// getset(l);
-	// ft_mangement_instructoin(l, head);
-	// ft_struct_lem_in(&l, &head);
+	getset(l);
+	ft_mangement_instructoin(l, head);
+	ft_struct_lem_in(&l, &head);
 	return (0);
 }

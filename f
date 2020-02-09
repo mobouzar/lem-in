@@ -1,12 +1,10 @@
-#jhhk
-#jhhk
-#jhhk
-#jhhk
+#comment
+#another comment
 10
 a 0 0
 ##start
-b 0 4
 c 2 2
+b 0 4
 d 4 0
 e 3 4
 f 6 2

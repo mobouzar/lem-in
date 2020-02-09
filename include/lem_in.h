@@ -6,7 +6,7 @@
 /*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 13:49:39 by mobouzar          #+#    #+#             */
-/*   Updated: 2020/02/07 21:43:28 by mobouzar         ###   ########.fr       */
+/*   Updated: 2020/02/09 05:25:48 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ typedef struct		s_bfs
 typedef struct		s_map
 {
 	char			*data;
+	int				type;
 	struct s_map	*next;
 }					t_map;
 
@@ -79,6 +80,7 @@ typedef struct		s_lem_in
 	t_queue			**adlist;
 	t_group			**g;
 	char			**rooms;
+	int				bool;
 	int				type;
 	int				nbants;
 	int				nbrooms;
@@ -120,5 +122,7 @@ void				ft_push_queue(t_queue **lst, int node);
 void				ft_struct_lem_in(t_lem_in **l, t_map **map);
 void				ft_free_room(t_room **g);
 void				ft_free_map(t_map **map);
+
+// int					parse_data(t_lem_in *l, t_map *map);
 
 #endif

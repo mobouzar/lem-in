@@ -37,6 +37,8 @@ def on_key(event):
 		speed_cntl(event.key, settings)
 	elif (event.key == 'z' or event.key == 'x'):
 		up_node_size(event.key, settings)
+	elif (event.key == 'r'):
+		relaunch_map(event.key, settings)
 
 def animation(frame, data, fig, ant_squad, settings):
 	fig.clear()
@@ -89,8 +91,9 @@ def make_squad(data, settings):
 	return (ant_list)
 
 try:
+	args = sys.argv
 	data = create_data()
-	settings = get_settings(data['field'])
+	settings = get_settings(data['field'], args[1])
 	ant_squad = make_squad(data, settings)
 	set_paths_colors(data['field'], ant_squad)
 

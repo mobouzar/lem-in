@@ -6,7 +6,7 @@
 /*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/24 22:26:58 by yelazrak          #+#    #+#             */
-/*   Updated: 2020/02/08 10:30:51 by mobouzar         ###   ########.fr       */
+/*   Updated: 2020/02/09 06:16:45 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ void			ft_struct_lem_in(t_lem_in **l, t_map **map)
 	int			i;
 
 	i = -1;
+	(void)map;
 	while ((*l)->adlist && ++i < (*l)->nbrooms)
 		ft_free_queue__(&(*l)->adlist[i]);
 	if ((*l)->adlist)

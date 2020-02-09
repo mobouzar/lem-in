@@ -14,6 +14,12 @@
 import matplotlib.pyplot as plt
 import networkx as nx
 
+def check_args(args, flag):
+    for arg in args:
+        if (arg == flag):
+            return (True)
+    return (False)
+
 def check_graph_size(field, settings):
 	if (len(field.nodes)) < 100:
 		settings["markersize"] = 20.0
@@ -29,10 +35,9 @@ def check_graph_size(field, settings):
 		settings["window_size"] = (18, 16)
 	return (settings)
 
-def get_settings(field):
-    settings = {}
+def other_settings(field, settings):
     settings = check_graph_size(field, settings)
-    settings["steps_between_nodes"] = 15
+    settings["steps_between_nodes"] = 5
     settings["repeat"] = False
     settings["link_color"] = "#101010"
     settings["used"] = ['#F7C59F', '#5A5a86', '#7CEA9C', '#55D6BE', '#2E5EAA', '#00C9FF', '#2A324B', '#F6C0D0', '#B8E1FF', '#808D8E', '#202030']
@@ -42,6 +47,22 @@ def get_settings(field):
     settings["ant_colors_list"] = "#15B6B6"
     settings["labels"] = dict([(field.start, 'START'), (field.end, 'END')])
     settings["interval"] = 20
+    return(settings)
+
+def change_speed(settings, args):
+	if (args == '--slow'):
+		settings['steps_between_nodes'] = 50
+	elif (args == '--fast'):
+		settings['steps_between_nodes'] = 5
+	return (settings)
+
+def get_settings(field, args):
+    settings = {}
+    print(args)
+    if (check_args(args, '--slow') or check_args(args, '--fast')):
+        settings = change_speed(settings, args)
+    else:
+        settings = other_settings(field, settings)
     return (settings)
 
 def draw_node(data, name, color, size):

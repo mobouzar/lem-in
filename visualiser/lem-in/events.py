@@ -31,3 +31,9 @@ def up_node_size(key, settings):
 		settings['node_size'] += 30
 	elif (key == 'x' and settings['node_size'] > 100):
 		settings['node_size'] -= 30
+
+def relaunch_map(key, settings):
+	if (key == 'r'):
+		print(settings['repeat'])
+		settings['repeat'] = True
+		print(settings['repeat'])

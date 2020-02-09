@@ -6,7 +6,7 @@
 /*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 16:28:52 by mobouzar          #+#    #+#             */
-/*   Updated: 2020/02/08 11:00:05 by mobouzar         ###   ########.fr       */
+/*   Updated: 2020/02/09 06:45:05 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static char	**ft_allocate_str(char **tab, char *str, char del)
 			count++;
 			if (str[i + 1] == '\0' || str[i + 1] == del)
 			{
-				if (!(*tab = (char *)malloc(sizeof(char) * (count + 1))))
+				if (!(*tab = ft_strnew(count)))
 					return (NULL);
 				tab++;
 				count = 0;
@@ -68,18 +68,17 @@ static char	**ft_fill_array(char **array, char const *str, char del)
 	int		i;
 	int		j;
 	int		k;
-int	l;
+
 	i = 0;
 	j = 0;
 	k = 0;
-	l = ft_strlen(str);
 	while (str[i] != '\0')
 	{
 		if (str[i] != del)
 		{
 			array[k][j] = str[i];
 			j++;
-			if (i < l && (str[i + 1] == '\0' || str[i + 1] == del))
+			if ((str[i + 1] == '\0' || str[i + 1] == del))
 			{
 				array[k][j] = '\0';
 				k++;
@@ -101,8 +100,6 @@ char		**ft_split_format(char *str, char c)
 		return (NULL);
 	i = count_words(str, c);
 	if (!(wordsarray = (char **)malloc(sizeof(char *) * (i + 1))))
-		return (NULL);
-	if (wordsarray == NULL)
 		return (NULL);
 	ft_allocate_str(wordsarray, str, c);
 	ft_fill_array(wordsarray, str, c);
