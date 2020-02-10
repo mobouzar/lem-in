@@ -6,7 +6,7 @@
 /*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 17:08:44 by mobouzar          #+#    #+#             */
-/*   Updated: 2020/02/09 07:08:14 by mobouzar         ###   ########.fr       */
+/*   Updated: 2020/02/10 13:04:18 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ int		ft_contains(t_lem_in *l, char *element)
 {
 	int	len;
 	int	i;
-	int m;
-	
+	int	m;
+
 	i = 0;
 	len = l->nbrooms - 1;
 	while (i <= len)
@@ -62,15 +62,13 @@ int		sort_rooms_array(t_lem_in *l)
 	return (1);
 }
 
-int		creat_rooms_array(t_lem_in *l, t_room *room)
+int		create_array(t_lem_in *l, t_room *room)
 {
-	t_room	*head;
 	char	*start;
 	char	*end;
 	int		i;
 
 	i = -1;
-	head = room;
 	if (!(l->rooms = (char **)ft_memalloc(sizeof(char *) * (l->nbrooms + 1))))
 		return (0);
 	while (++i < l->nbrooms && room && room->next)
@@ -80,7 +78,6 @@ int		creat_rooms_array(t_lem_in *l, t_room *room)
 		else if (i == l->end)
 			end = ft_strdup(room->name);
 		l->rooms[i] = ft_strdup(room->name);
-		ft_printf("%d,  %s\n", i, l->rooms[i]);
 		room = room->next;
 	}
 	sort_rooms_array(l);

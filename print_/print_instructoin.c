@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   print_instructoin.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yelazrak <yelazrak@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 18:50:05 by yelazrak          #+#    #+#             */
-/*   Updated: 2020/02/07 12:17:32 by yelazrak         ###   ########.fr       */
+/*   Updated: 2020/02/10 16:30:21 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem_in.h"
+#include "../include/lem_in.h"
 
 static void		ft_instrcutoin(t_lem_in *l, t_print **q, t_print **m)
 {

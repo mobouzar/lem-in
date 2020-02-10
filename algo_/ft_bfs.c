@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_bfs.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yelazrak <yelazrak@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 10:47:42 by yelazrak          #+#    #+#             */
-/*   Updated: 2020/02/09 11:47:06 by yelazrak         ###   ########.fr       */
+/*   Updated: 2020/02/10 16:48:25 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int **vist, int nbroom, int strat)
 	(*bfs)->last = (*bfs)->q;
 }
 
-static int				ft_conditoin(t_bfs *lst,
+static int				ft_condition(t_bfs *lst,
 t_queue *queue, t_queue *tmp, int *vist)
 {
 	t_lem_in			*lem;
@@ -83,7 +83,7 @@ t_queue *tmp, int *vist, int *node)
 			vist[queue->node] = tmp->node;
 			return (1);
 		}
-		if (ft_conditoin(lst, queue, tmp, vist))
+		if (ft_condition(lst, queue, tmp, vist))
 		{
 			vist[queue->node] = tmp->node;
 			ft_push_queue(&lst->last, queue->node);

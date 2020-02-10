@@ -6,11 +6,11 @@
 /*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 09:45:53 by yelazrak          #+#    #+#             */
-/*   Updated: 2020/02/08 10:38:33 by mobouzar         ###   ########.fr       */
+/*   Updated: 2020/02/10 16:30:43 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem_in.h"
+#include "../include/lem_in.h"
 
 int				ft_path_len(char *path)
 {

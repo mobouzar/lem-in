@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yelazrak <yelazrak@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 13:49:39 by mobouzar          #+#    #+#             */
-/*   Updated: 2020/02/09 11:49:20 by yelazrak         ###   ########.fr       */
+/*   Updated: 2020/02/10 16:28:20 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,11 @@
 # include <stdio.h>
 # include <fcntl.h>
 
-# define LINK 3
+# define ANTS 01
+# define START_ROOMS 2
+# define START_LINKS 4
+# define START_TOKEN 8
+# define END_TOKEN 16
 
 typedef struct		s_print
 {
@@ -26,7 +30,6 @@ typedef struct		s_print
 	int				bant;
 	int				len_path;
 	struct s_print	*next;
-
 }					t_print;
 
 typedef struct		s_group
@@ -42,8 +45,6 @@ typedef struct		s_queue
 	int				node;
 	int				flow;
 	int				node_parent;
-	int				node_visit;
-	int				visit;
 	struct s_queue	*next;
 }					t_queue;
 
@@ -81,8 +82,7 @@ typedef struct		s_lem_in
 	t_queue			**adlist;
 	t_group			**g;
 	char			**rooms;
-	int				bool;
-	int				type;
+	int				ret;
 	int				nbants;
 	int				nbrooms;
 	int				start;
@@ -95,13 +95,13 @@ typedef struct		s_lem_in
 }					t_lem_in;
 
 int					get_nbants(t_lem_in *l, char *line);
-int					read_data(t_map *map, t_lem_in *l);
-int					check_room(t_room **r, char *line);
+int					read_data(t_lem_in **l, t_map **map);
+int					check_room(char *line);
 int					get_rooms(t_lem_in *l, t_room **r,
 t_map **m, char *line);
 int					get_links(t_lem_in **l, char *line);
-int					ft_creat_adj(t_lem_in **lst, int nbrooms);
-int					creat_rooms_array(t_lem_in *l, t_room *room);
+int					ft_create_adj(t_lem_in **lst, int nbrooms);
+int					create_array(t_lem_in *l, t_room *room);
 int					ft_contains(t_lem_in *l, char *element);
 int					*ft_bfs(t_lem_in *lem, int c, int *node, int y);
 int					ft_path_len(char *path);
@@ -123,5 +123,12 @@ void				ft_push_queue(t_queue **lst, int node);
 void				ft_struct_lem_in(t_lem_in **l, t_map **map);
 void				ft_free_room(t_room **g);
 void				ft_free_map(t_map **map);
+
+int					stock_map(t_map **map);
+int					is_cord(char *nbr);
+int					ft_free_data(char **line);
+int					check_room(char *line);
+int					check_cmd(char *line, t_map **tmp, int *flag);
+int					stock_room(t_lem_in **l, t_map *map, t_room **r);
 
 #endif
