@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_fun_free.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yelazrak <yelazrak@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/24 22:26:58 by yelazrak          #+#    #+#             */
-/*   Updated: 2020/02/10 16:19:48 by yelazrak         ###   ########.fr       */
+/*   Updated: 2020/02/10 20:01:36 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,14 @@ void			ft_free_room(t_room **room)
 
 void			ft_struct_lem_in(t_lem_in **l, t_map **map)
 {
-	int			i;
+	int		i;
 
 	i = -1;
-	(void)map;
 	while ((*l)->adlist && ++i < (*l)->nbrooms)
 		ft_free_queue__(&(*l)->adlist[i]);
 	if ((*l)->adlist)
 		ft_memdel((void **)&(*l)->adlist);
-	if ((*l)->g[0])
+	if ((*l)->g && (*l)->g[0])
 		ft_free_group(&(*l)->g[0]);
 	if ((*l)->g)
 		ft_memdel((void **)&(*l)->g);

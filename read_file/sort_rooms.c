@@ -6,7 +6,7 @@
 /*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 17:08:44 by mobouzar          #+#    #+#             */
-/*   Updated: 2020/02/10 13:04:18 by mobouzar         ###   ########.fr       */
+/*   Updated: 2020/02/10 20:22:31 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,5 +85,7 @@ int		create_array(t_lem_in *l, t_room *room)
 	l->end = ft_contains(l, end);
 	ft_strdel(&start);
 	ft_strdel(&end);
+	if (ft_strequ(l->rooms[l->start], l->rooms[l->end]))
+		return (0);
 	return (1);
 }

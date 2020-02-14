@@ -6,7 +6,7 @@
 /*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 13:49:39 by mobouzar          #+#    #+#             */
-/*   Updated: 2020/02/10 16:28:20 by mobouzar         ###   ########.fr       */
+/*   Updated: 2020/02/11 20:42:09 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 # define LEM_IN_H
 
 # include "../libft/libft.h"
-# include <stdio.h>
-# include <fcntl.h>
 
 # define ANTS 01
 # define START_ROOMS 2
@@ -125,6 +123,7 @@ void				ft_free_room(t_room **g);
 void				ft_free_map(t_map **map);
 
 int					stock_map(t_map **map);
+void				print_data(t_map *data);
 int					is_cord(char *nbr);
 int					ft_free_data(char **line);
 int					check_room(char *line);

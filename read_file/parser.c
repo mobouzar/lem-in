@@ -6,7 +6,7 @@
 /*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 01:20:51 by mobouzar          #+#    #+#             */
-/*   Updated: 2020/02/10 16:36:32 by mobouzar         ###   ########.fr       */
+/*   Updated: 2020/02/11 17:25:59 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,16 @@ int			is_cord(char *nbr)
 	return (1);
 }
 
-int			get_line_type(char *line, t_map **tmp, int *flag)
+static int	get_line_type(char *line, t_map **tmp, int *flag)
 {
 	int i;
 
 	i = 0;
 	if ((*tmp) && line[0] == '#' && line[1] != '#')
 		return (((*tmp)->type = 5) ? 1 : 0);
+	if (ft_strnequ(line, "##", 2) &&
+	!ft_strequ(line, "##start") && !ft_strequ(line, "##end"))
+		return (((*tmp)->type = 4) ? 1 : 0);
 	if (!(*flag & ANTS))
 	{
 		if (!ft_is_numbre(line))
@@ -67,11 +70,8 @@ int			get_line_type(char *line, t_map **tmp, int *flag)
 	}
 	if (ft_strnequ(line, "##", 2))
 		return (check_cmd(line, tmp, flag));
-	else if (!(*flag & START_LINKS))
-	{
-		if (check_room(line))
-			return (((*tmp)->type = 2) ? 1 : 0);
-	}
+	if (!(*flag & START_LINKS) && check_room(line))
+		return (((*tmp)->type = 2) ? 1 : 0);
 	*flag |= START_LINKS;
 	while ((line = ft_strchr(line, '-')) && line++)
 		i++;
@@ -89,7 +89,9 @@ int			stock_map(t_map **map)
 	line = NULL;
 	while (get_next_line(0, &line) == 1)
 	{
-		if (!between((get_line_type(line, map, &flag)), 1, 7))
+		if (!get_line_type(line, map, &flag))
+			return (ft_free_data(&line));
+		if (!between((*map)->type, 1, 7))
 			return (ft_free_data(&line));
 		if (!(*map)->data)
 			(*map)->data = ft_strdup(line);

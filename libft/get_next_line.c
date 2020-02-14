@@ -6,7 +6,7 @@
 /*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 21:46:16 by mobouzar          #+#    #+#             */
-/*   Updated: 2020/02/08 17:04:53 by mobouzar         ###   ########.fr       */
+/*   Updated: 2020/02/10 20:09:36 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int		get_next_line(const int fd, char **line)
 		g.buff[g.c] = '\0';
 		lineof[fd] = safe_memory(lineof[fd], ft_strjoin(lineof[fd], g.buff));
 		if (ft_strchr(lineof[fd], '\n'))
-			break ;		
+			break ;
 	}
 	while (lineof[fd][g.p] != '\n' && lineof[fd][g.p] != '\0')
 		g.p++;

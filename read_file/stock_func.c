@@ -6,7 +6,7 @@
 /*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 15:56:52 by mobouzar          #+#    #+#             */
-/*   Updated: 2020/02/10 16:07:48 by mobouzar         ###   ########.fr       */
+/*   Updated: 2020/02/11 15:05:51 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,6 @@ int			check_cmd(char *line, t_map **tmp, int *flag)
 			ft_strdel(&line2);
 		}
 	}
-	else if (ft_strnequ(line, "##", 2))
-		(*tmp)->type = 4;
 	return (1);
 }
 

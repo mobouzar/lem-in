@@ -6,13 +6,23 @@
 /*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 11:15:11 by yelazrak          #+#    #+#             */
-/*   Updated: 2020/02/10 15:28:33 by mobouzar         ###   ########.fr       */
+/*   Updated: 2020/02/11 15:06:16 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include/lem_in.h"
 
-int					main(void)
+void	print_data(t_map *data)
+{
+	while (data->next)
+	{
+		ft_printf("%s\n", data->data);
+		data = data->next;
+	}
+	ft_printf("\n");
+}
+
+int		main(void)
 {
 	t_lem_in		*l;
 	t_map			*map;
@@ -27,8 +37,7 @@ int					main(void)
 	l->end = -1;
 	if (!read_data(&l, (t_map *[]){head, map}) || !l->adlist)
 	{
-		ft_memdel((void*)&l);
-		ft_free_map(&head);
+		ft_struct_lem_in(&l, &head);
 		ft_putendl("Error");
 		return (1);
 	}
