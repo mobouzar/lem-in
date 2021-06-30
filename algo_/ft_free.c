@@ -39,12 +39,10 @@ static void		ft_free_init_(t_print **init)
 
 void			ft_free_init(t_print ***init, int j)
 {
-	t_lem_in	*p;
 	int			i;
 
 	if ((*init))
 	{
-		p = getset(0);
 		i = 0;
 		while (i < j && (*init)[i])
 		{

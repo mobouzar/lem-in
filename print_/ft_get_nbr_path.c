@@ -95,10 +95,8 @@ static t_print	**ft_get_ants_start(t_print ***init, t_lem_in *l, int lenght)
 t_print			**ft_chang_path(t_lem_in *l, int lenght)
 {
 	t_print		**init;
-	t_group		*g;
 	int			i;
 
-	g = l->g[0];
 	if (!(init = (t_print **)malloc(sizeof(t_print *) * lenght)))
 		return (NULL);
 	ft_memset((void *)init, '\0', sizeof(t_print *) * lenght);
